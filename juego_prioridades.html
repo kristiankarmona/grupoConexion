@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de Prioridades</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        h1 { color: #2c3e50; margin-bottom: 10px; }
+        p { color: #7f8c8d; margin-bottom: 20px; text-align: center; }
+        
+        .game-container {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .column {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            min-width: 250px;
+        }
+
+        .slot {
+            height: 60px;
+            background-color: white;
+            border: 2px dashed #bdc3c7;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .slot::before {
+            content: attr(data-rank);
+            position: absolute;
+            left: -30px;
+            font-weight: bold;
+            color: #95a5a6;
+        }
+
+        .card {
+            height: 50px;
+            width: 230px;
+            background-color: #2ecc71;
+            color: white;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            cursor: grab;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            user-select: none;
+            transition: transform 0.2s;
+        }
+
+        .card:active { cursor: grabbing; }
+        .card.dragging { opacity: 0.5; }
+
+        #message {
+            margin-top: 30px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #27ae60;
+            text-align: center;
+            height: 40px;
+        }
+
+        .reset-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .reset-btn:hover { background-color: #2980b9; }
+    </style>
+</head>
+<body>
+
+    <h1>Grupo de Conexion Mazuren - Ordena tus Prioridades</h1>
+    <p>Arrastra las tarjetas verdes a los espacios en blanco en el orden correcto de importancia.</p>
+
+    <div class="game-container">
+        <div class="column" id="cards-pool">
+            </div>
+
+        <div class="column" id="slots-container">
+            <div class="slot" data-rank="1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="slot" data-rank="2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="slot" data-rank="3" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="slot" data-rank="4" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="slot" data-rank="5" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="slot" data-rank="6" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+        </div>
+    </div>
+
+    <div id="message"></div>
+    <button class="reset-btn" onclick="initGame()">Reiniciar Juego</button>
+
+    <script>
+        const correctOrder = ["Dios", "Yo", "Familia", "Iglesia | Servicio", "Trabajo", "Amigos | Hobbies"];
+        
+        function initGame() {
+            const pool = document.getElementById('cards-pool');
+            const message = document.getElementById('message');
+            const slots = document.querySelectorAll('.slot');
+            
+            message.innerText = '';
+            pool.innerHTML = '';
+            slots.forEach(slot => slot.innerHTML = '');
+
+            // Mezclar tarjetas para el inicio
+            const shuffled = [...correctOrder].sort(() => Math.random() - 0.5);
+
+            shuffled.forEach((text, index) => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.draggable = true;
+                card.id = 'card-' + index;
+                card.innerText = text;
+                card.ondragstart = drag;
+                pool.appendChild(card);
+            });
+        }
+
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+            ev.target.classList.add('dragging');
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            const data = ev.dataTransfer.getData("text");
+            const draggedElement = document.getElementById(data);
+            draggedElement.classList.remove('dragging');
+            
+            let target = ev.target;
+            if (target.classList.contains('card')) target = target.parentNode;
+
+            if (target.classList.contains('slot') && target.children.length === 0) {
+                target.appendChild(draggedElement);
+                checkWin();
+            } else if (target.id === 'cards-pool') {
+                target.appendChild(draggedElement);
+            }
+        }
+
+        function checkWin() {
+            const slots = document.querySelectorAll('.slot');
+            let currentOrder = [];
+            let full = true;
+
+            slots.forEach(slot => {
+                if (slot.children.length > 0) {
+                    currentOrder.push(slot.children[0].innerText);
+                } else {
+                    full = false;
+                }
+            });
+
+            if (full) {
+                const isCorrect = currentOrder.every((val, index) => val === correctOrder[index]);
+                if (isCorrect) {
+                    document.getElementById('message').innerText = "¡Excelente! Has organizado tus prioridades correctamente. 🎊";
+                    launchCelebration();
+                } else {
+                    document.getElementById('message').innerText = "Casi... revisa el orden e intenta de nuevo.";
+                }
+            }
+        }
+
+        function launchCelebration() {
+            var duration = 3 * 1000;
+            var end = Date.now() + duration;
+
+            (function frame() {
+              confetti({
+                particleCount: 7,
+                angle: 60,
+                spread: 55,
+                origin: { x: 0 },
+                colors: ['#2ecc71', '#f1c40f', '#e67e22', '#3498db']
+              });
+              confetti({
+                particleCount: 7,
+                angle: 120,
+                spread: 55,
+                origin: { x: 1 },
+                colors: ['#2ecc71', '#f1c40f', '#e67e22', '#3498db']
+              });
+
+              if (Date.now() < end) {
+                requestAnimationFrame(frame);
+              }
+            }());
+        }
+
+        initGame();
+    </script>
+</body>
+</html>
