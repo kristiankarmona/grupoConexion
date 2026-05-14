@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Preguntas Micros - Ruleta Interactiva</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --dark-bg: #121212;
+            --red-line: #e21f26;
+        }
+
+        body {
+            background: radial-gradient(circle, #2a2a2a 0%, #000000 100%);
+            color: white;
+            font-family: 'Roboto', sans-serif;
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 40px;
+            -webkit-user-select: none;
+            user-select: none;
+            margin: 0;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        h1 {
+            font-family: 'Oswald', sans-serif;
+            color: var(--gold);
+            text-transform: uppercase;
+            line-height: 1.1;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .wheel-container {
+            position: relative;
+            width: 85vw;
+            max-width: 420px;
+            aspect-ratio: 1/1;
+            margin: 30px auto;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            transform: translateZ(0); /* Forzamos aceleración en iOS */
+        }
+
+        .pointer {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 35px;
+            height: 35px;
+            background-color: var(--gold);
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            z-index: 20;
+            border: 2px solid white;
+        }
+
+        canvas {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            box-shadow: 0 0 30px rgba(0,0,0,0.9), 0 0 10px var(--gold);
+            border: 5px solid var(--gold);
+            will-change: transform;
+            display: block;
+            background-color: #000;
+        }
+
+        .btn-gold {
+            background-color: var(--gold);
+            color: black;
+            font-family: 'Oswald', sans-serif;
+            padding: 12px 30px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            font-size: 1.2rem;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .btn-gold:hover {
+            filter: brightness(1.2);
+            transform: scale(1.05);
+        }
+
+        .btn-small {
+            background-color: transparent;
+            border: 1px solid rgba(255,255,255,0.4);
+            color: white;
+            padding: 6px 20px;
+            font-size: 0.75rem;
+            margin-top: 25px;
+            letter-spacing: 1px;
+            transition: background 0.3s;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .btn-small:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .red-line {
+            height: 2px;
+            background-color: var(--red-line);
+            width: 60%;
+            margin: 20px auto;
+        }
+
+        .footer-text {
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 40px;
+            color: #999;
+            font-weight: bold;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        #question-display {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: white;
+            margin: 20px 0;
+            padding: 0 15px;
+            min-height: 2.5em;
+            line-height: 1.2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+            -webkit-animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @-webkit-keyframes fadeIn {
+            from { opacity: 0; -webkit-transform: translateY(15px); }
+            to { opacity: 1; -webkit-transform: translateY(0); }
+        }
+
+        .hidden-el {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="pt-10 text-center select-none">
+        <h1 class="text-5xl md:text-7xl">PREGUNTAS</h1>
+        <h1 class="text-5xl md:text-7xl">MICROS</h1>
+    </div>
+
+    <div class="wheel-container" id="wheel-trigger">
+        <div class="pointer"></div>
+        <!-- Resolucion interna fija para evitar fallos de renderizado en Safari -->
+        <canvas id="wheel" width="800" height="800"></canvas>
+    </div>
+
+    <div id="interaction-area" class="w-full text-center max-w-2xl px-6">
+        <div id="question-display" class="hidden-el"></div>
+        
+        <button id="view-answer-btn" class="btn-gold hidden-el">Ver respuesta</button>
+
+        <div id="answer-content" class="hidden-el fade-in">
+            <div class="red-line"></div>
+            <div class="px-4 text-gray-200 text-left md:text-center">
+                <p id="biblical-answer" class="text-lg mb-4"></p>
+                <p id="marriage-example" class="italic text-gray-400 text-sm border-l-4 border-gold pl-4 md:border-0 md:pl-0"></p>
+            </div>
+            <div class="red-line"></div>
+            <button id="continue-btn" class="btn-small">CONTINUAR</button>
+        </div>
+    </div>
+
+    <footer class="footer-text">
+        GRP CONEXIÓN MAZUREN OLOR FRAGANTE
+    </footer>
+
+    <script>
+        const allQuestions = [
+            { 
+                q: "¿Es el amor un sentimiento que surge o una decisión que se toma?", 
+                a: "Respuesta Bíblica: Es una decisión de la voluntad. En Deuteronomio 7:7-8, vemos que Dios no eligió a Su pueblo porque fueran mejores, sino porque \"los amó\" (decidió amarlos). Marcos 12:30-31 lo establece como un mandato, y los mandatos se obedecen con la voluntad, no solo cuando hay ganas.", 
+                e: "Ejemplo Matrimonial: Decidir tratar con ternura a tu esposo(a) después de un día agotador en el trabajo, incluso cuando tu cuerpo y ánimo solo quieren silencio y aislamiento." 
+            },
+            { 
+                q: "¿Qué significa \"morir\" por el cónyuge en el contexto del matrimonio moderno?", 
+                a: "Respuesta Bíblica: Significa renunciar al egoísmo. Juan 15:13 dice: \"Nadie tiene mayor amor que este, que uno ponga su vida por sus amigos\". En el matrimonio, \"poner la vida\" es ceder mis derechos y preferencias en favor del bienestar del otro, imitando el sacrificio de Cristo (Juan 3:16).", 
+                e: "Ejemplo Matrimonial: Renunciar a tener la última palabra en una discusión o dejar de lado un pasatiempo personal un fin de semana para ayudar al cónyuge con una carga que lo tiene abrumado." 
+            },
+            { 
+                q: "¿Por qué el amor es descrito como el \"vínculo perfecto\"?", 
+                a: "Respuesta Bíblica: Porque es lo único que mantiene todo unido cuando las circunstancias fallan. Colosenses 3:14 enseña que sobre todas las virtudes debemos vestirnos de amor, porque es el lazo que permite que la paciencia, la bondad y la humildad funcionen en armonía.", 
+                e: "Ejemplo Matrimonial: Cuando llega una crisis financiera, el amor es el \"pegamento\" que evita que la pareja se culpe mutuamente, permitiéndoles trabajar como un solo equipo frente al problema." 
+            },
+            { 
+                q: "¿Cómo se puede amar a un cónyuge cuando sus defectos se vuelven evidentes?", 
+                a: "Respuesta Bíblica: Entendiendo el amor como una habilidad que requiere entrenamiento. 1 Juan 4:20 nos confronta: si no amamos al hermano (cónyuge) a quien vemos, no podemos amar a Dios. El amor bíblico \"todo lo sufre, todo lo cree, todo lo espera, todo lo soporta\" (1 Corintios 13:7).", 
+                e: "Ejemplo Matrimonial: En lugar de criticar constantemente un hábito molesto de tu pareja, decides \"entrenar\" tu paciencia y buscar formas constructivas de apoyarle, entendiendo que tú también tienes defectos que el otro soporta." 
+            },
+            { 
+                q: "¿Cuál es el peligro de vivir el amor según el \"diseño del mundo\"?", 
+                a: "Respuesta Bíblica: El mundo enseña un amor condicional (\"te amo si me haces feliz\"). La Biblia enseña un amor de Pacto. Mientras el mundo busca recibir, el Reino busca dar (Hechos 20:35). El diseño del mundo es temporal; el amor de Dios es una fuente inagotable.", 
+                e: "Ejemplo Matrimonial: El mundo dice: \"si ya no sientes mariposas, sepárate\". El diseño bíblico dice: \"aunque el sentimiento fluctúe, mi promesa de amarte permanece firme porque mi pacto es con Dios y contigo\"." 
+            },
+            { 
+                q: "¿Por qué el perdón debe ser un ejercicio diario y no un evento ocasional?", 
+                a: "Respuesta Bíblica: Para evitar los \"estorbos\" en la relación y la familia. Mateo 6:14-15 advierte que nuestra relación con Dios se bloquea si no perdonamos. Efesios 4:26 dice: \"no se ponga el sol sobre vuestro enojo\", indicando que la limpieza de ofensas debe ser cotidiana.", 
+                e: "Ejemplo Matrimonial: No irse a dormir enojados después de un malentendido, sino pedir perdón por la actitud ofensiva (aunque creas tener la razón) para que la amargura no eche raíces en el hogar." 
+            },
+            { 
+                q: "¿Cuál es la diferencia entre el arrepentimiento y simplemente pedir disculpas?", 
+                a: "Respuesta Bíblica: El arrepentimiento implica un cambio de dirección. (Mateo 6:14-15). No es solo decir \"lo siento\", es reconocer el daño causado y decidir no repetir la conducta por amor al pacto.", 
+                e: "Ejemplo Matrimonial: Si un cónyuge ha sido cortante o rudo, el arrepentimiento no es solo pedir perdón, sino esforzarse activamente por cambiar su forma de hablar y buscar ser más amable en los días siguientes." 
+            },
+            { 
+                q: "¿Cómo afecta nuestra relación con Dios la forma en que amamos a nuestra pareja?", 
+                a: "Respuesta Bíblica: Dios es la fuente del amor. Si estamos desconectados de la fuente, nuestro \"tanque\" de amor se vacía. 1 Juan 4:19 dice: \"Nosotros le amamos a él, porque él nos amó primero\". Solo quien se siente amado por Dios puede dar amor sacrificial.", 
+                e: "Ejemplo Matrimonial: Cuando sientes que ya no tienes paciencia para tu cónyuge, vas a la oración para ser llenado del amor de Dios, y desde esa plenitud espiritual regresas a tu relación con una actitud renovada." 
+            },
+            { 
+                q: "¿Por qué el amor requiere \"perseverancia\" según 1 Juan 4:20?", 
+                a: "Respuesta Bíblica: Porque amar a seres imperfectos es agotador para la carne. La Biblia nos llama a no cansarnos de hacer el bien (Gálatas 6:9). La perseverancia convierte el amor en un testimonio de la fidelidad de Dios.", 
+                e: "Ejemplo Matrimonial: Continuar siendo detallista, servicial y respetuoso a través de los años, incluso cuando la rutina y el paso del tiempo intentan apagar la intención inicial de relación Grupo de conexion." 
+            },
+            { 
+                q: "¿Qué significa \"avivar el amor\" en el matrimonio?", 
+                a: "Respuesta Bíblica: Significa cuidar el fuego que Dios puso. En 2 Timoteo 1:6, Pablo le dice a Timoteo que \"avive el fuego del don de Dios\". En el matrimonio, el amor es un don que debe ser alimentado con acciones intencionales de \"ministración\" y gratitud.", 
+                e: "Ejemplo Matrimonial: Separar un tiempo específico a la semana (una cita, una caminata) exclusivamente para conectar el corazón, recordar por qué se aman y dar gracias a Dios juntos por su unión, sin hablar de problemas o logística del hogar." 
+            }
+        ];
+
+        let questions = [...allQuestions];
+        const canvas = document.getElementById('wheel');
+        const ctx = canvas.getContext('2d');
+        const wheelTrigger = document.getElementById('wheel-trigger');
+        const viewAnswerBtn = document.getElementById('view-answer-btn');
+        const continueBtn = document.getElementById('continue-btn');
+        const questionDisplay = document.getElementById('question-display');
+        const answerContent = document.getElementById('answer-content');
+        const biblicalAnswerText = document.getElementById('biblical-answer');
+        const marriageExampleText = document.getElementById('marriage-example');
+
+        const colors = ['#2e47a5', '#6f2c91', '#e21f26', '#f47920', '#fff200', '#009543'];
+        let currentRotation = 0;
+        let isSpinning = false;
+        let selectedIndex = -1;
+        let answerViewed = false; 
+
+        function drawWheel() {
+            const numSegments = questions.length;
+            const centerX = 400; // Mitad de 800
+            const centerY = 400; // Mitad de 800
+            const radius = 380;
+
+            ctx.clearRect(0, 0, 800, 800);
+
+            if (numSegments === 0) {
+                ctx.fillStyle = "white";
+                ctx.font = "bold 40px Oswald";
+                ctx.textAlign = "center";
+                ctx.fillText("¡TODOS CONECTADOS!", centerX, centerY);
+                return;
+            }
+
+            const segmentAngle = (2 * Math.PI) / numSegments;
+
+            for (let i = 0; i < numSegments; i++) {
+                const startAngle = i * segmentAngle;
+                const endAngle = (i + 1) * segmentAngle;
+
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.arc(centerX, centerY, radius, startAngle, endAngle);
+                ctx.fillStyle = colors[i % colors.length];
+                ctx.fill();
+                ctx.strokeStyle = "rgba(0,0,0,0.1)";
+                ctx.lineWidth = 1;
+                ctx.stroke();
+
+                ctx.save();
+                ctx.translate(centerX, centerY);
+                ctx.rotate(startAngle + segmentAngle / 2);
+                
+                const isYellow = colors[i % colors.length] === '#fff200';
+                ctx.fillStyle = isYellow ? 'black' : 'white';
+                ctx.textAlign = "right";
+                ctx.font = "bold 18px Arial";
+
+                const text = questions[i].q;
+                const displayText = text.length > 40 ? text.substring(0, 37) + "..." : text;
+                
+                ctx.fillText(displayText.toUpperCase(), radius - 40, 5);
+                ctx.restore();
+            }
+
+            // Círculo central "Botón"
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 90, 0, 2 * Math.PI); 
+            ctx.fillStyle = '#d4af37';
+            ctx.fill();
+            ctx.strokeStyle = "white";
+            ctx.lineWidth = 8;
+            ctx.stroke();
+
+            // Texto central
+            ctx.fillStyle = 'white';
+            ctx.font = "bold 28px Oswald";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.fillText("CLICK", centerX, centerY - 20);
+            ctx.fillText("AQUÍ", centerX, centerY + 20);
+        }
+
+        function spin() {
+            if (isSpinning || questions.length === 0) return;
+
+            if (selectedIndex !== -1) {
+                if (answerViewed) {
+                    questions.splice(selectedIndex, 1);
+                    drawWheel();
+                    if (questions.length === 0) {
+                        resetUI();
+                        return;
+                    }
+                }
+                selectedIndex = -1;
+                answerViewed = false;
+            }
+
+            isSpinning = true;
+            resetUI();
+
+            const spinDuration = 4000;
+            const extraSpins = 8 + Math.random() * 5;
+            const targetRotation = currentRotation + extraSpins * 2 * Math.PI + Math.random() * 2 * Math.PI;
+            const startTime = performance.now();
+
+            function animateSpin(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / spinDuration, 1);
+                const easeOut = 1 - Math.pow(1 - progress, 4);
+                const rotation = currentRotation + (targetRotation - currentRotation) * easeOut;
+                
+                canvas.style.webkitTransform = `rotate(${rotation}rad)`;
+                canvas.style.transform = `rotate(${rotation}rad)`;
+
+                if (progress < 1) {
+                    requestAnimationFrame(animateSpin);
+                } else {
+                    currentRotation = targetRotation % (2 * Math.PI);
+                    isSpinning = false;
+                    finishSpin();
+                }
+            }
+            requestAnimationFrame(animateSpin);
+        }
+
+        function finishSpin() {
+            const numSegments = questions.length;
+            if (numSegments === 0) return;
+
+            const segmentAngle = (2 * Math.PI) / numSegments;
+            let normalizedRotation = (currentRotation % (2 * Math.PI));
+            let winningIndex = Math.floor(( (2 * Math.PI) - normalizedRotation - Math.PI/2 + 2*Math.PI*2 ) % (2 * Math.PI) / segmentAngle);
+            
+            selectedIndex = winningIndex;
+            answerViewed = false; 
+            showQuestion(questions[selectedIndex].q);
+        }
+
+        function showQuestion(text) {
+            questionDisplay.innerText = text;
+            questionDisplay.classList.remove('hidden-el');
+            questionDisplay.classList.add('fade-in');
+            
+            setTimeout(() => {
+                viewAnswerBtn.classList.remove('hidden-el');
+                viewAnswerBtn.classList.add('fade-in');
+            }, 600);
+        }
+
+        function resetUI() {
+            questionDisplay.classList.add('hidden-el');
+            viewAnswerBtn.classList.add('hidden-el');
+            answerContent.classList.add('hidden-el');
+            questionDisplay.classList.remove('fade-in');
+            viewAnswerBtn.classList.remove('fade-in');
+        }
+
+        viewAnswerBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            answerViewed = true; 
+            biblicalAnswerText.innerText = questions[selectedIndex].a;
+            marriageExampleText.innerText = questions[selectedIndex].e;
+            viewAnswerBtn.classList.add('hidden-el');
+            answerContent.classList.remove('hidden-el');
+        });
+
+        continueBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (selectedIndex !== -1) {
+                questions.splice(selectedIndex, 1);
+                selectedIndex = -1;
+                answerViewed = false;
+                resetUI();
+                drawWheel(); 
+            }
+        });
+
+        wheelTrigger.addEventListener('click', spin);
+
+        // Dibujar inmediatamente con la resolución fija
+        drawWheel();
+        
+        // Redibujar por si acaso hay un retraso en la carga de fuentes
+        window.onload = drawWheel;
+    </script>
+</body>
+</html>
