@@ -238,7 +238,7 @@
         </div>
         <div class="slider-container">
           <span class="scale-lbl">1</span>
-          <input type="range" id="comunicacion" min="1" max="10" value="1" oninput="document.getElementById('val_comunicacion').innerText = this.value">
+          <input type="range" class="slider-input" id="comunicacion" min="1" max="10" value="1" oninput="document.getElementById('val_comunicacion').innerText = this.value">
           <span class="scale-lbl">10</span>
         </div>
       </div>
@@ -251,7 +251,7 @@
         </div>
         <div class="slider-container">
           <span class="scale-lbl">1</span>
-          <input type="range" id="sexual" min="1" max="10" value="1" oninput="document.getElementById('val_sexual').innerText = this.value">
+          <input type="range" class="slider-input" id="sexual" min="1" max="10" value="1" oninput="document.getElementById('val_sexual').innerText = this.value">
           <span class="scale-lbl">10</span>
         </div>
       </div>
@@ -264,7 +264,7 @@
         </div>
         <div class="slider-container">
           <span class="scale-lbl">1</span>
-          <input type="range" id="financiera" min="1" max="10" value="1" oninput="document.getElementById('val_financiera').innerText = this.value">
+          <input type="range" class="slider-input" id="financiera" min="1" max="10" value="1" oninput="document.getElementById('val_financiera').innerText = this.value">
           <span class="scale-lbl">10</span>
         </div>
       </div>
@@ -277,7 +277,7 @@
         </div>
         <div class="slider-container">
           <span class="scale-lbl">1</span>
-          <input type="range" id="oracion" min="1" max="10" value="1" oninput="document.getElementById('val_oracion').innerText = this.value">
+          <input type="range" class="slider-input" id="oracion" min="1" max="10" value="1" oninput="document.getElementById('val_oracion').innerText = this.value">
           <span class="scale-lbl">10</span>
         </div>
       </div>
@@ -290,7 +290,7 @@
         </div>
         <div class="slider-container">
           <span class="scale-lbl">1</span>
-          <input type="range" id="lecturaPalabra" min="1" max="10" value="1" oninput="document.getElementById('val_lecturaPalabra').innerText = this.value">
+          <input type="range" class="slider-input" id="lecturaPalabra" min="1" max="10" value="1" oninput="document.getElementById('val_lecturaPalabra').innerText = this.value">
           <span class="scale-lbl">10</span>
         </div>
       </div>
@@ -303,7 +303,7 @@
         </div>
         <div class="slider-container">
           <span class="scale-lbl">1</span>
-          <input type="range" id="compromisoMinisterial" min="1" max="10" value="1" oninput="document.getElementById('val_compromisoMinisterial').innerText = this.value">
+          <input type="range" class="slider-input" id="compromisoMinisterial" min="1" max="10" value="1" oninput="document.getElementById('val_compromisoMinisterial').innerText = this.value">
           <span class="scale-lbl">10</span>
         </div>
       </div>
@@ -316,7 +316,7 @@
         </div>
         <div class="slider-container">
           <span class="scale-lbl">1</span>
-          <input type="range" id="salud" min="1" max="10" value="1" oninput="document.getElementById('val_salud').innerText = this.value">
+          <input type="range" class="slider-input" id="salud" min="1" max="10" value="1" oninput="document.getElementById('val_salud').innerText = this.value">
           <span class="scale-lbl">10</span>
         </div>
       </div>
@@ -380,6 +380,21 @@
         btn.disabled = false;
       });
     });
+	
+	// Remueve el foco del campo de texto cuando el usuario toca cualquier barra en móvil
+const nombreInput = document.getElementById('nombre');
+const sliders = document.querySelectorAll('.slider-input');
+
+sliders.forEach(slider => {
+  // Escucha los eventos de inicio de toque o interacción
+  ['touchstart', 'pointerdown', 'mousedown'].forEach(eventType => {
+    slider.addEventListener(eventType, function() {
+      if (document.activeElement === nombreInput) {
+        nombreInput.blur(); // Oculta el teclado y quita el foco
+      }
+    });
+  });
+});
   </script>
 </body>
 </html>
