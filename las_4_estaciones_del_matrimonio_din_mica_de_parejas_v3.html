@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grupo de Conexión Parejas Mazurén - Olor Fragante</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans y Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@600;800;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- html2canvas para captura de imagen -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        winter: {
+                            light: '#e0f2fe',
+                            DEFAULT: '#0284c7',
+                            dark: '#0369a1',
+                            accent: '#38bdf8',
+                            bg: '#f0f9ff'
+                        },
+                        spring: {
+                            light: '#dcfce7',
+                            DEFAULT: '#16a34a',
+                            dark: '#15803d',
+                            accent: '#4ade80',
+                            bg: '#f0fdf4'
+                        },
+                        summer: {
+                            light: '#fef3c7',
+                            DEFAULT: '#f59e0b',
+                            dark: '#d97706',
+                            accent: '#fbbf24',
+                            bg: '#fffbeb'
+                        },
+                        autumn: {
+                            light: '#ffedd5',
+                            DEFAULT: '#ea580c',
+                            dark: '#c2410c',
+                            accent: '#fb923c',
+                            bg: '#fff7ed'
+                        }
+                    },
+                    animation: {
+                        'bounce-slow': 'bounce 3s infinite',
+                        'float': 'float 4s ease-in-out infinite',
+                        'pulse-glow': 'pulseGlow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { opacity: '0.8', transform: 'scale(1)' },
+                            '50%': { opacity: '1', transform: 'scale(1.03)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, #fdf4ff 0%, #ede9fe 25%, #e0f2fe 50%, #fef3c7 75%, #ffe4e6 100%);
+            min-height: 100vh;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.08), 0 0 25px rgba(124, 58, 237, 0.07);
+        }
+        .option-btn {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .option-btn:hover {
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.15);
+        }
+        .badge-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 14px;
+            border-radius: 9999px;
+            font-size: 0.825rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.03);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased flex flex-col justify-between p-3 sm:p-6 md:p-8">
+
+    <!-- Encabezado Principal Único -->
+    <header class="max-w-4xl mx-auto w-full text-center py-6 mb-2">
+        <h1 class="font-display font-black text-2xl sm:text-3xl md:text-4xl tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-purple-700 via-rose-600 to-amber-500 drop-shadow-sm px-2">
+            Grupo de Conexión Parejas Mazurén - Olor Fragante
+        </h1>
+    </header>
+
+    <!-- Contenedor Principal -->
+    <main class="max-w-3xl mx-auto w-full my-auto">
+
+        <!-- 1. PANTALLA DE BIENVENIDA & REGISTRO DE NOMBRE -->
+        <section id="screen-welcome" class="glass-card rounded-3xl p-6 sm:p-10 text-center relative overflow-hidden transition-all duration-500">
+            <div class="absolute -top-10 -right-10 w-36 h-36 rounded-full bg-amber-200/40 blur-2xl pointer-events-none"></div>
+            <div class="absolute -bottom-10 -left-10 w-36 h-36 rounded-full bg-rose-200/40 blur-2xl pointer-events-none"></div>
+
+            <div class="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500/10 via-rose-500/10 to-purple-500/10 border border-purple-200/60 px-4 py-1.5 rounded-full text-xs font-bold text-purple-700 uppercase tracking-wider mb-6">
+                ✨ Diagnóstico Relacional en 7 Pasos
+            </div>
+
+            <h2 class="font-display text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight mb-4">
+                ¿En qué estación se encuentra tu <span class="text-transparent bg-clip-text bg-gradient-to-r from-rose-500 via-purple-600 to-indigo-600">matrimonio hoy?</span>
+            </h2>
+
+            <p class="text-slate-600 text-base sm:text-lg max-w-xl mx-auto mb-8 font-normal leading-relaxed">
+                El matrimonio pasa por ciclos y climas emocionales: <strong class="text-slate-800 font-semibold">Invierno, Primavera, Verano y Otoño</strong>. Descubre el estado de tu relación y recibe claves prácticas y bíblicas para avanzar juntos.
+            </p>
+
+            <!-- 4 Mini Estaciones -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-lg mx-auto mb-8">
+                <div class="bg-sky-50 border border-sky-100 p-2.5 rounded-2xl flex flex-col items-center">
+                    <span class="text-2xl mb-1">❄️</span>
+                    <span class="text-xs font-bold text-sky-800">Invierno</span>
+                    <span class="text-[10px] text-sky-600">Deshielo</span>
+                </div>
+                <div class="bg-emerald-50 border border-emerald-100 p-2.5 rounded-2xl flex flex-col items-center">
+                    <span class="text-2xl mb-1">🌱</span>
+                    <span class="text-xs font-bold text-emerald-800">Primavera</span>
+                    <span class="text-[10px] text-emerald-600">Siembra</span>
+                </div>
+                <div class="bg-amber-50 border border-amber-100 p-2.5 rounded-2xl flex flex-col items-center">
+                    <span class="text-2xl mb-1">☀️</span>
+                    <span class="text-xs font-bold text-amber-800">Verano</span>
+                    <span class="text-[10px] text-amber-600">Disfrute</span>
+                </div>
+                <div class="bg-orange-50 border border-orange-100 p-2.5 rounded-2xl flex flex-col items-center">
+                    <span class="text-2xl mb-1">🍂</span>
+                    <span class="text-xs font-bold text-orange-800">Otoño</span>
+                    <span class="text-[10px] text-orange-600">Alerta</span>
+                </div>
+            </div>
+
+            <!-- Entrada de Nombre -->
+            <div class="max-w-md mx-auto bg-slate-50/90 p-5 rounded-2xl border border-slate-200/80 shadow-inner">
+                <label for="userNameInput" class="block text-left text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+                    <i class="fa-solid fa-user-heart text-rose-500 mr-1.5"></i> Para comenzar, ¿cuál es tu nombre?
+                </label>
+                <div class="relative flex items-center">
+                    <input 
+                        type="text" 
+                        id="userNameInput" 
+                        placeholder="Escribe tu nombre (ej: Valentina, Carlos...)" 
+                        class="w-full px-4 py-3.5 pr-12 rounded-xl border-2 border-purple-200 focus:border-purple-600 focus:outline-none text-slate-800 font-semibold placeholder:text-slate-400 placeholder:font-normal text-base transition-all bg-white shadow-sm"
+                        autocomplete="off"
+                        maxlength="35"
+                    >
+                    <div class="absolute right-3 text-purple-400">
+                        <i class="fa-solid fa-sparkles"></i>
+                    </div>
+                </div>
+                <p id="nameError" class="text-rose-500 text-xs font-semibold text-left mt-2 hidden">
+                    <i class="fa-solid fa-circle-exclamation mr-1"></i> Por favor ingresa tu nombre para personalizar las recomendaciones.
+                </p>
+                <button 
+                    onclick="startDiagnosis()" 
+                    class="mt-4 w-full py-4 px-6 rounded-xl font-bold text-white text-base bg-gradient-to-r from-purple-600 via-pink-600 to-rose-500 hover:from-purple-700 hover:to-rose-600 shadow-lg shadow-purple-500/25 active:scale-[0.99] transition-all flex items-center justify-center gap-2 group cursor-pointer"
+                >
+                    <span>Comenzar el Diagnóstico</span>
+                    <i class="fa-solid fa-arrow-right group-hover:translate-x-1.5 transition-transform"></i>
+                </button>
+            </div>
+            <p class="text-[11px] text-slate-400 mt-4 flex items-center justify-center gap-1.5">
+                <i class="fa-solid fa-shield-heart text-rose-400"></i> Respuestas 100% privadas y confidenciales
+            </p>
+        </section>
+
+        <!-- 2. PANTALLA DE PREGUNTAS (1 A 7) -->
+        <section id="screen-quiz" class="glass-card rounded-3xl p-5 sm:p-9 hidden transition-all duration-300">
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center space-x-2">
+                    <span class="w-8 h-8 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center font-bold text-sm">
+                        <i class="fa-regular fa-clipboard-question"></i>
+                    </span>
+                    <div>
+                        <span id="quizParticipantBadge" class="text-xs font-extrabold text-purple-700 tracking-wide uppercase">Hola</span>
+                        <div class="text-xs text-slate-400 font-medium">Responde con la máxima honestidad</div>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <span id="questionStepText" class="text-xs font-black px-3 py-1 rounded-full bg-purple-50 text-purple-700 border border-purple-200">
+                        Pregunta 1 de 7
+                    </span>
+                </div>
+            </div>
+
+            <!-- Barra de Progreso -->
+            <div class="w-full bg-slate-100 rounded-full h-2.5 mb-6 overflow-hidden p-0.5 border border-slate-200/50">
+                <div id="progressBar" class="bg-gradient-to-r from-purple-500 via-pink-500 to-amber-400 h-full rounded-full transition-all duration-300 ease-out" style="width: 14%;"></div>
+            </div>
+
+            <!-- Título de Pregunta -->
+            <div class="mb-6">
+                <span id="questionCategory" class="badge-pill bg-purple-100 text-purple-800 text-[11px] mb-2 inline-block">
+                    Tono Emocional
+                </span>
+                <h3 id="questionTitle" class="font-display font-extrabold text-xl sm:text-2xl text-slate-900 leading-snug">
+                    ¿Cuál es el tono emocional predominante en su hogar?
+                </h3>
+            </div>
+
+            <!-- Opciones Dinámicas -->
+            <div id="optionsContainer" class="space-y-3.5 mb-6"></div>
+
+            <!-- Navegación -->
+            <div class="flex items-center justify-between pt-2 border-t border-slate-100 text-xs text-slate-400">
+                <button 
+                    id="prevBtn" 
+                    onclick="handlePreviousQuestion()" 
+                    class="text-slate-500 hover:text-slate-800 font-bold px-3 py-2 rounded-lg hover:bg-slate-100 transition-colors flex items-center gap-1.5 disabled:opacity-30 disabled:pointer-events-none"
+                    disabled
+                >
+                    <i class="fa-solid fa-chevron-left"></i> Anterior
+                </button>
+                <span class="italic text-[11px]">Toca una opción para continuar</span>
+            </div>
+        </section>
+
+        <!-- 3. PANTALLA DE RESULTADOS & RECOMENDACIONES -->
+        <section id="screen-result" class="hidden transition-all duration-500 space-y-6">
+
+            <!-- Contenedor exportable como imagen -->
+            <div id="exportableArea" class="space-y-6 p-2 rounded-3xl">
+
+                <!-- Card Superior: PROTAGONISMO DEL NOMBRE Y LA ESTACIÓN -->
+                <div id="resultHeroCard" class="glass-card rounded-3xl p-6 sm:p-10 text-center relative overflow-hidden border-2 shadow-2xl">
+                    <div class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white/80 border border-slate-200 shadow-sm text-xs font-black uppercase tracking-widest text-slate-600 mb-3">
+                        <i class="fa-solid fa-award text-amber-500"></i> Diagnóstico Concluido
+                    </div>
+
+                    <!-- Nombre en grande y protagónico -->
+                    <h2 class="text-xs uppercase tracking-widest font-extrabold text-slate-400 mb-1">Recomendaciones personalizadas para</h2>
+                    <div id="resultPersonName" class="font-display font-black text-4xl sm:text-6xl text-slate-900 tracking-tight leading-none mb-4">
+                        VALENTINA
+                    </div>
+
+                    <div class="my-4 flex flex-col items-center justify-center">
+                        <div id="resultSeasonIcon" class="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl flex items-center justify-center text-5xl sm:text-6xl shadow-xl animate-float mb-4 transition-transform">
+                            ❄️
+                        </div>
+                        <div class="text-sm font-bold uppercase tracking-wider text-slate-500">Actualmente tu matrimonio se encuentra en:</div>
+                        <h3 id="resultSeasonName" class="font-display text-3xl sm:text-5xl font-black text-slate-900 mt-1">
+                            Invierno Matrimonial
+                        </h3>
+                        <p id="resultSeasonSub" class="text-slate-600 max-w-lg mt-2 text-sm sm:text-base font-medium">
+                            Frialdad, desapego, amargura o muros defensivos. Urgencia de deshielo, perdón genuino y restauración.
+                        </p>
+                    </div>
+
+                    <!-- Resumen de Respuestas -->
+                    <div class="bg-white/70 backdrop-blur-md rounded-2xl p-4 sm:p-5 max-w-xl mx-auto border border-white/80 shadow-sm mt-6">
+                        <div class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3 flex items-center justify-between">
+                            <span>Balance de respuestas</span>
+                            <span class="text-[10px] text-slate-400 font-normal">Total: 7 preguntas</span>
+                        </div>
+                        <div class="grid grid-cols-4 gap-2 text-center text-xs">
+                            <div class="p-2 rounded-xl bg-sky-50 border border-sky-100">
+                                <span class="block text-base">❄️</span>
+                                <span class="font-extrabold text-sky-800 text-sm" id="count-A">0</span>
+                                <span class="block text-[10px] font-semibold text-sky-600">Invierno</span>
+                            </div>
+                            <div class="p-2 rounded-xl bg-emerald-50 border border-emerald-100">
+                                <span class="block text-base">🌱</span>
+                                <span class="font-extrabold text-emerald-800 text-sm" id="count-B">0</span>
+                                <span class="block text-[10px] font-semibold text-emerald-600">Primavera</span>
+                            </div>
+                            <div class="p-2 rounded-xl bg-amber-50 border border-amber-100">
+                                <span class="block text-base">☀️</span>
+                                <span class="font-extrabold text-amber-800 text-sm" id="count-C">0</span>
+                                <span class="block text-[10px] font-semibold text-amber-600">Verano</span>
+                            </div>
+                            <div class="p-2 rounded-xl bg-orange-50 border border-orange-100">
+                                <span class="block text-base">🍂</span>
+                                <span class="font-extrabold text-orange-800 text-sm" id="count-D">0</span>
+                                <span class="block text-[10px] font-semibold text-orange-600">Otoño</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="resultPurposeNotice" class="mt-6 p-4 rounded-2xl text-xs sm:text-sm font-semibold max-w-xl mx-auto flex items-center gap-3 text-left">
+                        <i class="fa-solid fa-lightbulb text-xl shrink-0"></i>
+                        <span id="resultPurposeText">En las estaciones difíciles la meta es avanzar hacia una estación cálida.</span>
+                    </div>
+                </div>
+
+                <!-- Card Central: RECOMENDACIONES BÍBLICAS (NTV) -->
+                <div class="glass-card rounded-3xl p-6 sm:p-10 border border-white">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-5 mb-6">
+                        <div>
+                            <span class="badge-pill bg-purple-100 text-purple-800 text-xs mb-1">Plan de Acción Estratégico</span>
+                            <h4 class="font-display font-extrabold text-2xl sm:text-3xl text-slate-900" id="recommendationsSectionTitle">
+                                4 Acciones Bíblicas Recomendadas
+                            </h4>
+                        </div>
+                        <div class="text-xs font-semibold text-slate-500 bg-slate-100 px-3 py-1.5 rounded-xl self-start sm:self-auto">
+                            <i class="fa-solid fa-book-bible text-purple-600 mr-1"></i> Traducción NTV
+                        </div>
+                    </div>
+
+                    <p id="recommendationsIntro" class="text-slate-600 text-sm sm:text-base mb-6 font-medium">
+                        Sigue estas acciones intencionales para transformar el ambiente de tu hogar:
+                    </p>
+
+                    <div id="actionCardsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6"></div>
+                </div>
+
+            </div>
+
+            <!-- Card Inferior: DINÁMICA DE PAREJA -->
+            <div class="glass-card rounded-3xl p-6 sm:p-8 bg-gradient-to-br from-indigo-900 via-purple-900 to-slate-900 text-white shadow-xl">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center text-amber-300 text-base">
+                        <i class="fa-solid fa-comments"></i>
+                    </div>
+                    <h5 class="font-display font-bold text-lg text-white">Reto de 15 Minutos para Ambos</h5>
+                </div>
+                <p class="text-sm text-slate-300 leading-relaxed mb-4">
+                    Con tu conyugue tomen 15 minutos sin pantallas, lean juntos las 4 acciones y elijan <span class="text-amber-300 font-bold">una sola acción</span> para ponerla en práctica durante los próximos 7 días.
+                </p>
+                <div class="flex flex-wrap items-center gap-3 pt-2">
+                    <button id="downloadBtn" onclick="downloadTipsFile()" class="px-5 py-2.5 rounded-xl bg-white text-slate-900 font-bold text-xs sm:text-sm hover:bg-slate-100 transition-all shadow-md flex items-center gap-2 cursor-pointer">
+                        <i class="fa-solid fa-download"></i> <span id="downloadBtnText">Descargar Tips</span>
+                    </button>
+                    <button onclick="restartQuiz()" class="px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-xs sm:text-sm transition-all border border-white/20 flex items-center gap-2 cursor-pointer">
+                        <i class="fa-solid fa-rotate-right"></i> Evaluar al Cónyuge o Reiniciar
+                    </button>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer Discreto -->
+    <footer class="max-w-4xl mx-auto w-full text-center py-4 mt-6 text-xs text-slate-500 font-medium">
+        Grupo de Conexión Parejas Mazurén - Olor Fragante • Dinámica de Diagnóstico y Edificación Matrimonial
+    </footer>
+
+    <!-- LÓGICA JAVASCRIPT COMPLETA -->
+    <script>
+        // 1. BANCO DE DATOS (7 PREGUNTAS DEL DOCUMENTO)
+        const questionsData = [
+            {
+                id: 1,
+                category: "Tono Emocional del Hogar",
+                question: "¿Cuál es el tono emocional predominante en su hogar?",
+                options: [
+                    { letter: "A", text: "Tensión, desánimo, silencio incómodo o resentimiento.", season: "Invierno" },
+                    { letter: "B", text: "Entusiasmo, ganas de compartir proyectos y sensación de nuevos comienzos.", season: "Primavera" },
+                    { letter: "C", text: "Calma, comodidad, satisfacción y estabilidad.", season: "Verano" },
+                    { letter: "D", text: "Indiferencia, distancia sutil o sensación de que la rutina está apagando la chispa.", season: "Otoño" }
+                ]
+            },
+            {
+                id: 2,
+                category: "Comunicación Diaria",
+                question: "Al comunicarse a diario, ¿cómo fluyen las conversaciones?",
+                options: [
+                    { letter: "A", text: "Con discusiones destructivas, sarcasmo o una evasión total del diálogo.", season: "Invierno" },
+                    { letter: "B", text: "Con apertura, curiosidad mutua y conversaciones profundas sobre planes futuros.", season: "Primavera" },
+                    { letter: "C", text: "De forma fluida y natural, aunque a veces con temas predecibles.", season: "Verano" },
+                    { letter: "D", text: "Conversaciones funcionales (logística de la casa/hijos) sin intimidad emocional.", season: "Otoño" }
+                ]
+            },
+            {
+                id: 3,
+                category: "Gestión de Conflictos",
+                question: "¿Cómo gestionan los desacuerdos o conflictos recientes?",
+                options: [
+                    { letter: "A", text: "Se levantan muros defensivos; no se resuelven y dejan amargura.", season: "Invierno" },
+                    { letter: "B", text: "Hay disposición a ceder, dialogar y perdonar con rapidez.", season: "Primavera" },
+                    { letter: "C", text: "Se resuelven con madurez, aunque a veces se prefieren evitar roces menores.", season: "Verano" },
+                    { letter: "D", text: "Se barren bajo la alfombra; existe un temor tácito a confrontar temas difíciles.", season: "Otoño" }
+                ]
+            },
+            {
+                id: 4,
+                category: "Intimidad y Trabajo en Equipo",
+                question: "¿Cómo describirías el nivel de trabajo en equipo e intimidad física y afectiva?",
+                options: [
+                    { letter: "A", text: "Roto o casi nulo; existe una barrera de frialdad y desconfianza.", season: "Invierno" },
+                    { letter: "B", text: "Creciendo activamente; hay caricias frecuentes, detalles y búsqueda mutua.", season: "Primavera" },
+                    { letter: "C", text: "Consolidado y regular, aunque a veces se da por sentado.", season: "Verano" },
+                    { letter: "D", text: "Disminuyendo; las muestras de afecto son cada vez más esporádicas.", season: "Otoño" }
+                ]
+            },
+            {
+                id: 5,
+                category: "Visión del Futuro Juntos",
+                question: "Cuando piensas en el futuro de la relación, ¿qué sentimiento predomina?",
+                options: [
+                    { letter: "A", text: "Desesperanza, soledad o ganas de huir.", season: "Invierno" },
+                    { letter: "B", text: "Ilusión, confianza y expectativa positiva.", season: "Primavera" },
+                    { letter: "C", text: "Gratitud y tranquilidad por lo construido.", season: "Verano" },
+                    { letter: "D", text: "Incertidumbre silenciosa o temor de que sigan alejándose.", season: "Otoño" }
+                ]
+            },
+            {
+                id: 6,
+                category: "Actitud hacia las Manías o Defectos",
+                question: "¿Qué actitud predomina hacia los defectos o manías del cónyuge?",
+                options: [
+                    { letter: "A", text: "Crítica constante, irritabilidad y desprecio.", season: "Invierno" },
+                    { letter: "B", text: "Paciencia, comprensión y enfoque en las virtudes.", season: "Primavera" },
+                    { letter: "C", text: "Aceptación madura y convivencia pacífica.", season: "Verano" },
+                    { letter: "D", text: "Resignación pasiva y acumulación silenciosa de molestias.", season: "Otoño" }
+                ]
+            },
+            {
+                id: 7,
+                category: "Tiempo de Calidad Exclusivo",
+                question: "¿Cuánto tiempo de calidad exclusivo (sin pantallas ni hijos) comparten a la semana?",
+                options: [
+                    { letter: "A", text: "Nada; el tiempo a solas genera tensión o incomodidad.", season: "Invierno" },
+                    { letter: "B", text: "Buscamos y disfrutamos activamente momentos a solas con regularidad.", season: "Primavera" },
+                    { letter: "C", text: "Tenemos nuestras rutinas compartidas que disfrutamos juntos.", season: "Verano" },
+                    { letter: "D", text: "Pasan semanas sin que tengamos un momento significativo a solas.", season: "Otoño" }
+                ]
+            }
+        ];
+
+        // 2. RECOMENDACIONES BÍBLICAS (NTV) POR ESTACIÓN
+        const seasonsInfo = {
+            Invierno: {
+                name: "Invierno Matrimonial",
+                emoji: "❄️",
+                letterKey: "A",
+                summary: "Frialdad, desapego, amargura o muros defensivos. Urgencia de deshielo, perdón genuino y restauración.",
+                goalText: "La meta inmediata en Invierno es derretir la frialdad mediante el perdón y la iniciativa amorosa para cruzar hacia una primavera renovada.",
+                colorClass: {
+                    badgeBg: "bg-sky-100 text-sky-800",
+                    border: "border-sky-300",
+                    bgGradient: "from-sky-50 via-white to-sky-100",
+                    iconBg: "bg-sky-500 text-white shadow-sky-500/40",
+                    accentText: "text-sky-600",
+                    verseBg: "bg-sky-50 border-sky-200 text-sky-950"
+                },
+                actions: [
+                    {
+                        number: "1",
+                        title: "Elegir perdonar y derribar la amargura",
+                        action: "Dejar de registrar las ofensas pasadas y decidir liberar al cónyuge del resentimiento diario.",
+                        verse: "«Por el contrario, sean amables unos con otros, sean de buen corazón, y perdónense unos a otros, tal como Dios los ha perdonado a ustedes por medio de Cristo.»",
+                        ref: "Efesios 4:32 (NTV)",
+                        tag: "Restauración"
+                    },
+                    {
+                        number: "2",
+                        title: "Abandonar la queja y el desprecio en el habla",
+                        action: "Frenar el sarcasmo y las palabras hirientes; sustituirlos por palabras que edifiquen o guardar silencio sabio hasta calmarse.",
+                        verse: "«No empleen un lenguaje tosco ni ofensivo. Que todo lo que digan sea bueno y útil, a fin de que sus palabras resulten de estímulo para quienes las oigan.»",
+                        ref: "Efesios 4:29 (NTV)",
+                        tag: "Comunicación Sana"
+                    },
+                    {
+                        number: "3",
+                        title: "Buscar ayuda pastoral o consejería matrimonial profesional",
+                        action: "Reconocer que las fuerzas propias no bastan y permitir la mediación de un tercero sabio e imparcial.",
+                        verse: "«Los planes fracasan por falta de consejo; muchos consejeros traen el éxito.»",
+                        ref: "Proverbios 15:22 (NTV)",
+                        tag: "Humildad y Apoyo"
+                    },
+                    {
+                        number: "4",
+                        title: "Tomar la iniciativa de servir sin esperar reciprocidad inmediata",
+                        action: "Realizar actos diarios de servicio por amor (deshielo unilateral), reflejando la gracia de Dios sin exigir cuentas.",
+                        verse: "«No se dejen vencer por el mal. Al contrario, venzan el mal haciendo el bien.»",
+                        ref: "Romanos 12:21 (NTV)",
+                        tag: "Amor en Acción"
+                    }
+                ]
+            },
+            Primavera: {
+                name: "Primavera Matrimonial",
+                emoji: "🌱",
+                letterKey: "B",
+                summary: "Esperanza, novedad, optimismo y proyectos compartidos. Un tiempo de siembra fértil y florecimiento mutuo.",
+                goalText: "El propósito en Primavera no es abandonarla, sino cimentar la emoción en bases espirituales y límites sólidos para dar fruto maduro.",
+                colorClass: {
+                    badgeBg: "bg-emerald-100 text-emerald-800",
+                    border: "border-emerald-300",
+                    bgGradient: "from-emerald-50 via-white to-teal-50",
+                    iconBg: "bg-emerald-500 text-white shadow-emerald-500/40",
+                    accentText: "text-emerald-600",
+                    verseBg: "bg-emerald-50 border-emerald-200 text-emerald-950"
+                },
+                actions: [
+                    {
+                        number: "1",
+                        title: "Edificar hábitos de oración y comunión espiritual compartida",
+                        action: "No depender únicamente del entusiasmo emocional; cimentar la relación en la búsqueda diaria de Dios en pareja.",
+                        verse: "«A menos que el Señor construya la casa, el trabajo de los constructores es una pérdida de tiempo.»",
+                        ref: "Salmos 127:1a (NTV)",
+                        tag: "Cimiento Divino"
+                    },
+                    {
+                        number: "2",
+                        title: "Establecer acuerdos y límites claros frente a los desacuerdos",
+                        action: "Aprovechar la buena disposición mutua para definir cómo resolverán los conflictos antes de que aparezcan las tensiones.",
+                        verse: "«¿Pueden dos personas caminar juntas sin ponerse de acuerdo en la dirección?»",
+                        ref: "Amós 3:3 (NTV)",
+                        tag: "Acuerdos Sabios"
+                    },
+                    {
+                        number: "3",
+                        title: "Aprender el lenguaje del amor específico del cónyuge",
+                        action: "Identificar cómo se siente amada la otra persona y practicar intencionalmente su lenguaje primordial.",
+                        verse: "«Que cada uno de nosotros procure agradar a su prójimo para el bien de él, con el fin de edificarlo.»",
+                        ref: "Romanos 15:2 (NTV)",
+                        tag: "Intimidad Emocional"
+                    },
+                    {
+                        number: "4",
+                        title: "Blindar el matrimonio contra influencias e interferencias externas",
+                        action: "Priorizar la lealtad al cónyuge por encima de opiniones familiares o amistades no constructivas.",
+                        verse: "«Esto explica por qué el hombre deja a su padre y a su madre, y se une a su esposa, y los dos se convierten en uno solo.»",
+                        ref: "Génesis 2:24 (NTV)",
+                        tag: "Unidad y Protección"
+                    }
+                ]
+            },
+            Verano: {
+                name: "Verano Matrimonial",
+                emoji: "☀️",
+                letterKey: "C",
+                summary: "Satisfacción, paz, comodidad y estabilidad. Un clima de disfrute mutuo donde se cosechan los frutos del amor.",
+                goalText: "En el Verano, el reto es vencer el conformismo y la complacencia pasiva para proteger el vínculo y evitar resbalar al otoño.",
+                colorClass: {
+                    badgeBg: "bg-amber-100 text-amber-900",
+                    border: "border-amber-300",
+                    bgGradient: "from-amber-50 via-white to-yellow-50",
+                    iconBg: "bg-amber-500 text-white shadow-amber-500/40",
+                    accentText: "text-amber-600",
+                    verseBg: "bg-amber-50 border-amber-200 text-amber-950"
+                },
+                actions: [
+                    {
+                        number: "1",
+                        title: "Estar vigilantes ante pequeños descuidos o distanciamientos",
+                        action: "No asumir que el matrimonio se mantiene solo; vigilar las pequeñas tensiones que puedan acumularse desapercibidas.",
+                        verse: "«Si ustedes piensan que están firmes, tengan cuidado de no caer.»",
+                        ref: "1 Corintios 10:12 (NTV)",
+                        tag: "Vigilancia Sana"
+                    },
+                    {
+                        number: "2",
+                        title: "Sembrar intencionalmente en la intimidad y la diversión",
+                        action: "Renovar las citas a solas, la creatividad en la vida conyugal y el disfrute mutuo sin distracciones cotidianas.",
+                        verse: "«Disfruta de la vida con la mujer que amas todos los días de tu vana vida, que Dios te ha dado debajo del sol.»",
+                        ref: "Eclesiastés 9:9a (NTV)",
+                        tag: "Gozo e Intimidad"
+                    },
+                    {
+                        number: "3",
+                        title: "Mantener una actitud continua de agradecimiento y honra mutua",
+                        action: "Expresar reconocimiento verbal frecuente por lo que el cónyuge hace y representa en el hogar.",
+                        verse: "«Sean agradecidos en toda circunstancia, pues esta es la voluntad de Dios para ustedes, los que pertenecen a Cristo Jesús.»",
+                        ref: "1 Tesalonicenses 5:18 (NTV)",
+                        tag: "Cultura de Gratitud"
+                    },
+                    {
+                        number: "4",
+                        title: "Poner el matrimonio al servicio y discipulado de otros",
+                        action: "Abrir el hogar para mentorear a parejas más jóvenes o servir juntos activamente en su comunidad.",
+                        verse: "«Y no se olviden de hacer el bien ni de compartir lo que tienen con quienes pasan necesidad. Estos son los sacrificios que le agradan a Dios.»",
+                        ref: "Hebreos 13:16 (NTV)",
+                        tag: "Propósito y Misión"
+                    }
+                ]
+            },
+            Otoño: {
+                name: "Otoño Matrimonial",
+                emoji: "🍂",
+                letterKey: "D",
+                summary: "Desconexión paulatina, señales de alerta, enfriamiento y rutina que va apagando la chispa.",
+                goalText: "En Otoño la prioridad urgente es frenar la desconexión a tiempo antes de descender al congelamiento del Invierno.",
+                colorClass: {
+                    badgeBg: "bg-orange-100 text-orange-900",
+                    border: "border-orange-300",
+                    bgGradient: "from-orange-50 via-white to-amber-100",
+                    iconBg: "bg-orange-500 text-white shadow-orange-500/40",
+                    accentText: "text-orange-600",
+                    verseBg: "bg-orange-50 border-orange-200 text-orange-950"
+                },
+                actions: [
+                    {
+                        number: "1",
+                        title: "Reconocer con honestidad las señales de desconexión sin negarlas",
+                        action: "Detener la evasión, tener una conversación sincera y admitir con humildad que la relación necesita ajustes urgentes.",
+                        verse: "«Por lo tanto, examínense ustedes mismos para ver si son fieles a la fe; pónganse a prueba.»",
+                        ref: "2 Corintios 13:5a (NTV)",
+                        tag: "Sinceridad Total"
+                    },
+                    {
+                        number: "2",
+                        title: "Volver a las prioridades y primeros hábitos del noviazgo",
+                        action: "Recuperar los pequeños detalles, notas, llamadas y atenciones que se dejaron de lado por el exceso de trabajo o la rutina.",
+                        verse: "«¡Mira qué lejos has caído! Vuélvete a mí y haz las obras que hacías al principio.»",
+                        ref: "Apocalipsis 2:5a (NTV)",
+                        tag: "Primer Amor"
+                    },
+                    {
+                        number: "3",
+                        title: "Derribar el orgullo y pedir perdón por las pequeñas heridas acumuladas",
+                        action: "Tomar la iniciativa de disculparse por faltas menores antes de que se endurezca y amargue el corazón.",
+                        verse: "«Confiesen sus pecados unos a otros y oren los unos por los otros, para que sean sanados.»",
+                        ref: "Santiago 5:16a (NTV)",
+                        tag: "Humildad y Sanidad"
+                    },
+                    {
+                        number: "4",
+                        title: "Proteger el corazón contra comparaciones o afectos indebidos fuera de casa",
+                        action: "Poner límites firmes a conversaciones o vínculos afectivos en el trabajo o redes sociales que compitan con la lealtad conyugal.",
+                        verse: "«Sobre todas las cosas cuida tu corazón, porque de él mana la vida.»",
+                        ref: "Proverbios 4:23 (NTV)",
+                        tag: "Fidelidad Radical"
+                    }
+                ]
+            }
+        };
+
+        // 3. ESTADO
+        let currentParticipantName = "";
+        let currentQuestionIndex = 0;
+        let userAnswers = {};
+        let currentSeasonKey = "";
+
+        // 4. CONTROLADORES
+        document.getElementById('userNameInput').addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                startDiagnosis();
+            }
+        });
+
+        function startDiagnosis() {
+            const input = document.getElementById('userNameInput');
+            const nameVal = input.value.trim();
+            const errorElem = document.getElementById('nameError');
+
+            if (!nameVal || nameVal.length < 2) {
+                errorElem.classList.remove('hidden');
+                input.focus();
+                return;
+            }
+
+            errorElem.classList.add('hidden');
+            currentParticipantName = nameVal.charAt(0).toUpperCase() + nameVal.slice(1);
+
+            document.getElementById('screen-welcome').classList.add('hidden');
+            document.getElementById('screen-quiz').classList.remove('hidden');
+
+            document.getElementById('quizParticipantBadge').textContent = `Participante: ${currentParticipantName}`;
+
+            currentQuestionIndex = 0;
+            userAnswers = {};
+            renderCurrentQuestion();
+        }
+
+        function renderCurrentQuestion() {
+            const q = questionsData[currentQuestionIndex];
+            const total = questionsData.length;
+
+            document.getElementById('questionStepText').textContent = `Pregunta ${currentQuestionIndex + 1} de ${total}`;
+            document.getElementById('progressBar').style.width = `${((currentQuestionIndex + 1) / total) * 100}%`;
+            document.getElementById('questionCategory').textContent = q.category;
+            document.getElementById('questionTitle').textContent = q.question;
+
+            const prevBtn = document.getElementById('prevBtn');
+            prevBtn.disabled = currentQuestionIndex === 0;
+
+            const container = document.getElementById('optionsContainer');
+            container.innerHTML = '';
+
+            const currentSelected = userAnswers[currentQuestionIndex];
+
+            q.options.forEach(opt => {
+                const isSelected = currentSelected === opt.letter;
+                
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = `option-btn w-full p-4 rounded-2xl border-2 text-left flex items-start gap-3.5 sm:gap-4 transition-all cursor-pointer ${
+                    isSelected 
+                    ? 'border-purple-600 bg-purple-50/90 shadow-md ring-2 ring-purple-400/30' 
+                    : 'border-slate-200/90 bg-white hover:border-purple-300 hover:bg-slate-50'
+                }`;
+
+                let letterBadgeColor = "bg-slate-100 text-slate-700";
+                if(opt.letter === 'A') letterBadgeColor = "bg-sky-100 text-sky-800 border-sky-200";
+                if(opt.letter === 'B') letterBadgeColor = "bg-emerald-100 text-emerald-800 border-emerald-200";
+                if(opt.letter === 'C') letterBadgeColor = "bg-amber-100 text-amber-800 border-amber-200";
+                if(opt.letter === 'D') letterBadgeColor = "bg-orange-100 text-orange-800 border-orange-200";
+
+                btn.innerHTML = `
+                    <div class="w-8 h-8 rounded-xl flex items-center justify-center font-black text-sm border shrink-0 ${letterBadgeColor}">
+                        ${opt.letter}
+                    </div>
+                    <div class="flex-1 pt-0.5">
+                        <p class="text-sm sm:text-base font-semibold text-slate-800 leading-snug">${opt.text}</p>
+                    </div>
+                    <div class="shrink-0 pt-1 text-slate-300">
+                        <i class="fa-solid ${isSelected ? 'fa-circle-check text-purple-600 text-lg' : 'fa-circle text-slate-200'}"></i>
+                    </div>
+                `;
+
+                btn.onclick = () => selectOption(opt.letter);
+                container.appendChild(btn);
+            });
+        }
+
+        function selectOption(letter) {
+            userAnswers[currentQuestionIndex] = letter;
+            
+            setTimeout(() => {
+                if (currentQuestionIndex < questionsData.length - 1) {
+                    currentQuestionIndex++;
+                    renderCurrentQuestion();
+                } else {
+                    finishAndShowResults();
+                }
+            }, 200);
+        }
+
+        function handlePreviousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                renderCurrentQuestion();
+            }
+        }
+
+        // 5. CÁLCULO DE RESULTADOS
+        function finishAndShowResults() {
+            const counts = { A: 0, B: 0, C: 0, D: 0 };
+            for (let i = 0; i < questionsData.length; i++) {
+                const ans = userAnswers[i];
+                if (ans) counts[ans] = (counts[ans] || 0) + 1;
+            }
+
+            document.getElementById('count-A').textContent = counts.A;
+            document.getElementById('count-B').textContent = counts.B;
+            document.getElementById('count-C').textContent = counts.C;
+            document.getElementById('count-D').textContent = counts.D;
+
+            let dominantLetter = 'A';
+            let maxCount = -1;
+
+            ['A', 'B', 'C', 'D'].forEach(letter => {
+                if (counts[letter] > maxCount) {
+                    maxCount = counts[letter];
+                    dominantLetter = letter;
+                }
+            });
+
+            // En caso de empate, priorizar atención preventiva
+            if (counts.A === maxCount) dominantLetter = 'A';
+            else if (counts.D === maxCount) dominantLetter = 'D';
+
+            let seasonKey = "Invierno";
+            if (dominantLetter === 'A') seasonKey = "Invierno";
+            else if (dominantLetter === 'B') seasonKey = "Primavera";
+            else if (dominantLetter === 'C') seasonKey = "Verano";
+            else if (dominantLetter === 'D') seasonKey = "Otoño";
+
+            displaySeasonResults(seasonKey);
+        }
+
+        function displaySeasonResults(seasonKey) {
+            currentSeasonKey = seasonKey;
+            const data = seasonsInfo[seasonKey];
+
+            document.getElementById('screen-quiz').classList.add('hidden');
+            const resultScreen = document.getElementById('screen-result');
+            resultScreen.classList.remove('hidden');
+
+            // Protagonismo del Nombre
+            const nameEl = document.getElementById('resultPersonName');
+            nameEl.textContent = currentParticipantName.toUpperCase();
+            
+            if (seasonKey === 'Invierno') {
+                nameEl.className = "font-display font-black text-4xl sm:text-6xl tracking-tight leading-none mb-3 text-transparent bg-clip-text bg-gradient-to-r from-sky-600 via-blue-600 to-indigo-700";
+            } else if (seasonKey === 'Primavera') {
+                nameEl.className = "font-display font-black text-4xl sm:text-6xl tracking-tight leading-none mb-3 text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-teal-600 to-green-600";
+            } else if (seasonKey === 'Verano') {
+                nameEl.className = "font-display font-black text-4xl sm:text-6xl tracking-tight leading-none mb-3 text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-orange-500 to-yellow-600";
+            } else {
+                nameEl.className = "font-display font-black text-4xl sm:text-6xl tracking-tight leading-none mb-3 text-transparent bg-clip-text bg-gradient-to-r from-orange-600 via-red-500 to-rose-600";
+            }
+
+            document.getElementById('resultSeasonIcon').textContent = data.emoji;
+            document.getElementById('resultSeasonIcon').className = `w-24 h-24 sm:w-28 sm:h-28 rounded-3xl flex items-center justify-center text-5xl sm:text-6xl shadow-xl animate-float mb-4 ${data.colorClass.iconBg}`;
+            document.getElementById('resultSeasonName').textContent = data.name;
+            document.getElementById('resultSeasonSub').textContent = data.summary;
+
+            const heroCard = document.getElementById('resultHeroCard');
+            heroCard.className = `glass-card rounded-3xl p-6 sm:p-10 text-center relative overflow-hidden border-2 shadow-2xl bg-gradient-to-b ${data.colorClass.bgGradient} ${data.colorClass.border}`;
+
+            const purposeBox = document.getElementById('resultPurposeNotice');
+            purposeBox.className = `mt-6 p-4 rounded-2xl text-xs sm:text-sm font-semibold max-w-xl mx-auto flex items-center gap-3 text-left border ${data.colorClass.verseBg}`;
+            document.getElementById('resultPurposeText').textContent = data.goalText;
+
+            const recTitle = document.getElementById('recommendationsSectionTitle');
+            if (seasonKey === 'Invierno') {
+                recTitle.textContent = `Recomendaciones para ${currentParticipantName}: Salir del Invierno`;
+            } else if (seasonKey === 'Otoño') {
+                recTitle.textContent = `Recomendaciones para ${currentParticipantName}: Frenar el Otoño`;
+            } else if (seasonKey === 'Primavera') {
+                recTitle.textContent = `Recomendaciones para ${currentParticipantName}: Madurar en Primavera`;
+            } else {
+                recTitle.textContent = `Recomendaciones para ${currentParticipantName}: Florecer en Verano`;
+            }
+
+            document.getElementById('recommendationsIntro').innerHTML = `
+                Hola <strong>${currentParticipantName}</strong>, estas son las 4 acciones estratégicas con respaldo bíblico para guiar a tu matrimonio en este tiempo:
+            `;
+
+            const cardsContainer = document.getElementById('actionCardsContainer');
+            cardsContainer.innerHTML = '';
+
+            data.actions.forEach(item => {
+                const card = document.createElement('div');
+                card.className = "bg-white/90 rounded-2xl p-5 sm:p-6 border border-slate-200/90 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow relative overflow-hidden";
+                
+                card.innerHTML = `
+                    <div class="mb-4">
+                        <div class="flex items-center justify-between gap-2 mb-2">
+                            <span class="w-7 h-7 rounded-lg ${data.colorClass.iconBg} flex items-center justify-center text-xs font-black">
+                                ${item.number}
+                            </span>
+                            <span class="text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-md bg-slate-100 text-slate-600">
+                                ${item.tag}
+                            </span>
+                        </div>
+                        <h5 class="font-display font-black text-slate-900 text-base sm:text-lg mb-2 leading-snug">
+                            ${item.title}
+                        </h5>
+                        <p class="text-slate-700 text-xs sm:text-sm font-medium leading-relaxed">
+                            <strong class="text-slate-900">Acción:</strong> ${item.action}
+                        </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-xl border ${data.colorClass.verseBg} text-xs leading-relaxed mt-2">
+                        <div class="flex items-start gap-2">
+                            <i class="fa-solid fa-quote-left opacity-40 mt-0.5 shrink-0 text-sm"></i>
+                            <div>
+                                <p class="italic font-medium">${item.verse}</p>
+                                <span class="block mt-1 font-bold text-[11px] opacity-90">— ${item.ref}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                cardsContainer.appendChild(card);
+            });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // GENERADOR DE IMAGEN EN ALTA RESOLUCIÓN (CANVAS NATIVO + FALLBACK HTML2CANVAS)
+        function downloadTipsFile() {
+            if (!currentSeasonKey || !seasonsInfo[currentSeasonKey]) return;
+
+            const btn = document.getElementById('downloadBtn');
+            const btnText = document.getElementById('downloadBtnText');
+            const iconElem = btn ? btn.querySelector('i') : null;
+            const originalIcon = iconElem ? iconElem.className : 'fa-solid fa-download';
+
+            if (btn) {
+                btn.disabled = true;
+                if (btnText) btnText.textContent = "Generando imagen...";
+                if (iconElem) iconElem.className = "fa-solid fa-spinner fa-spin";
+            }
+
+            try {
+                // Generamos directamente la imagen usando un canvas de alta resolución
+                generateSeasonImageCanvas(currentSeasonKey, currentParticipantName);
+                
+                // Restauramos el botón
+                setTimeout(() => {
+                    if (btn) {
+                        btn.disabled = false;
+                        if (btnText) btnText.textContent = "Descargar Tips";
+                        if (iconElem) iconElem.className = originalIcon;
+                    }
+                }, 800);
+            } catch (err) {
+                console.error("Error al generar la imagen:", err);
+                if (btn) {
+                    btn.disabled = false;
+                    if (btnText) btnText.textContent = "Descargar Tips";
+                    if (iconElem) iconElem.className = originalIcon;
+                }
+            }
+        }
+
+        // Función que dibuja la infografía exacta en un Canvas de 1200px de ancho y descarga el PNG
+        function generateSeasonImageCanvas(seasonKey, participantName) {
+            const data = seasonsInfo[seasonKey];
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+
+            const width = 1200;
+            // Calculamos altura dinámica según el contenido
+            const height = 1880;
+            canvas.width = width;
+            canvas.height = height;
+
+            // Paletas de color por estación para la infografía
+            const palettes = {
+                Invierno: {
+                    bgGradientStart: "#eff6ff",
+                    bgGradientEnd: "#e0f2fe",
+                    badgeBg: "#0284c7",
+                    badgeText: "#ffffff",
+                    nameGradStart: "#0284c7",
+                    nameGradEnd: "#1e3a8a",
+                    heroBorder: "#93c5fd",
+                    heroCardBg: "#ffffff",
+                    cardBg: "#ffffff",
+                    cardBorder: "#bae6fd",
+                    pillBg: "#e0f2fe",
+                    pillText: "#0369a1",
+                    verseBg: "#f0f9ff",
+                    verseBorder: "#bae6fd",
+                    verseText: "#0c4a6e"
+                },
+                Primavera: {
+                    bgGradientStart: "#f0fdf4",
+                    bgGradientEnd: "#dcfce7",
+                    badgeBg: "#16a34a",
+                    badgeText: "#ffffff",
+                    nameGradStart: "#16a34a",
+                    nameGradEnd: "#065f46",
+                    heroBorder: "#86efac",
+                    heroCardBg: "#ffffff",
+                    cardBg: "#ffffff",
+                    cardBorder: "#bbf7d0",
+                    pillBg: "#dcfce7",
+                    pillText: "#15803d",
+                    verseBg: "#f0fdf4",
+                    verseBorder: "#bbf7d0",
+                    verseText: "#14532d"
+                },
+                Verano: {
+                    bgGradientStart: "#fffbeb",
+                    bgGradientEnd: "#fef3c7",
+                    badgeBg: "#f59e0b",
+                    badgeText: "#ffffff",
+                    nameGradStart: "#d97706",
+                    nameGradEnd: "#92400e",
+                    heroBorder: "#fde68a",
+                    heroCardBg: "#ffffff",
+                    cardBg: "#ffffff",
+                    cardBorder: "#fde68a",
+                    pillBg: "#fef3c7",
+                    pillText: "#b45309",
+                    verseBg: "#fffbeb",
+                    verseBorder: "#fde68a",
+                    verseText: "#78350f"
+                },
+                Otoño: {
+                    bgGradientStart: "#fff7ed",
+                    bgGradientEnd: "#ffedd5",
+                    badgeBg: "#ea580c",
+                    badgeText: "#ffffff",
+                    nameGradStart: "#ea580c",
+                    nameGradEnd: "#9a3412",
+                    heroBorder: "#fdba74",
+                    heroCardBg: "#ffffff",
+                    cardBg: "#ffffff",
+                    cardBorder: "#fed7aa",
+                    pillBg: "#ffedd5",
+                    pillText: "#c2410c",
+                    verseBg: "#fff7ed",
+                    verseBorder: "#fed7aa",
+                    verseText: "#7c2d12"
+                }
+            };
+
+            const pal = palettes[seasonKey] || palettes.Primavera;
+
+            // 1. Fondo general con gradiente
+            const bgGrad = ctx.createLinearGradient(0, 0, width, height);
+            bgGrad.addColorStop(0, pal.bgGradientStart);
+            bgGrad.addColorStop(1, pal.bgGradientEnd);
+            ctx.fillStyle = bgGrad;
+            ctx.fillRect(0, 0, width, height);
+
+            // Marco decorativo exterior
+            ctx.strokeStyle = pal.heroBorder;
+            ctx.lineWidth = 6;
+            roundRect(ctx, 20, 20, width - 40, height - 40, 32, false, true);
+
+            // 2. Encabezado institucional
+            ctx.fillStyle = "#475569";
+            ctx.font = "800 24px 'Plus Jakarta Sans', sans-serif";
+            ctx.textAlign = "center";
+            ctx.fillText("GRUPO DE CONEXIÓN PAREJAS MAZURÉN - OLOR FRAGANTE", width / 2, 85);
+
+            // Subtítulo
+            ctx.fillStyle = "#64748b";
+            ctx.font = "600 18px 'Plus Jakarta Sans', sans-serif";
+            ctx.fillText("Diagnóstico Relacional • Las Cuatro Estaciones del Matrimonio", width / 2, 120);
+
+            // 3. Card Hero del Nombre y Estación
+            const heroY = 150;
+            const heroHeight = 440;
+            ctx.fillStyle = pal.heroCardBg;
+            ctx.shadowColor = "rgba(0, 0, 0, 0.08)";
+            ctx.shadowBlur = 30;
+            ctx.shadowOffsetY = 15;
+            roundRect(ctx, 60, heroY, width - 120, heroHeight, 28, true, false);
+            ctx.shadowColor = "transparent"; // reset shadow
+            ctx.strokeStyle = pal.heroBorder;
+            ctx.lineWidth = 3;
+            roundRect(ctx, 60, heroY, width - 120, heroHeight, 28, false, true);
+
+            // Distintivo "Diagnóstico Concluido"
+            ctx.fillStyle = pal.pillBg;
+            roundRect(ctx, width / 2 - 130, heroY + 25, 260, 36, 18, true, false);
+            ctx.fillStyle = pal.pillText;
+            ctx.font = "800 14px 'Plus Jakarta Sans', sans-serif";
+            ctx.fillText("DIAGNÓSTICO CONCLUIDO", width / 2, heroY + 49);
+
+            // "Recomendaciones personalizadas para"
+            ctx.fillStyle = "#94a3b8";
+            ctx.font = "700 16px 'Plus Jakarta Sans', sans-serif";
+            ctx.fillText("RECOMENDACIONES PERSONALIZADAS PARA", width / 2, heroY + 95);
+
+            // NOMBRE PROTAGÓNICO EN GRANDE
+            const nameGrad = ctx.createLinearGradient(width / 2 - 250, 0, width / 2 + 250, 0);
+            nameGrad.addColorStop(0, pal.nameGradStart);
+            nameGrad.addColorStop(1, pal.nameGradEnd);
+            ctx.fillStyle = nameGrad;
+            ctx.font = "900 62px 'Outfit', 'Plus Jakarta Sans', sans-serif";
+            ctx.fillText(participantName.toUpperCase(), width / 2, heroY + 165);
+
+            // Icono / Emoji y Nombre de la Estación
+            ctx.font = "52px 'Segoe UI Emoji', sans-serif";
+            ctx.fillText(data.emoji, width / 2, heroY + 235);
+
+            ctx.fillStyle = "#0f172a";
+            ctx.font = "900 36px 'Outfit', sans-serif";
+            ctx.fillText(data.name, width / 2, heroY + 285);
+
+            // Resumen de la Estación (multilínea)
+            ctx.fillStyle = "#475569";
+            ctx.font = "500 18px 'Plus Jakarta Sans', sans-serif";
+            wrapText(ctx, data.summary, width / 2, heroY + 325, width - 240, 26, true);
+
+            // Propósito / Meta
+            ctx.fillStyle = pal.verseBg;
+            roundRect(ctx, 100, heroY + 365, width - 200, 52, 14, true, false);
+            ctx.strokeStyle = pal.verseBorder;
+            ctx.lineWidth = 1.5;
+            roundRect(ctx, 100, heroY + 365, width - 200, 52, 14, false, true);
+
+            ctx.fillStyle = pal.verseText;
+            ctx.font = "700 16px 'Plus Jakarta Sans', sans-serif";
+            ctx.fillText("💡 " + data.goalText, width / 2, heroY + 398);
+
+            // 4. Sección de 4 Acciones Bíblicas (NTV)
+            const sectionTitleY = heroY + heroHeight + 50;
+            ctx.fillStyle = "#0f172a";
+            ctx.font = "900 28px 'Outfit', sans-serif";
+            ctx.textAlign = "left";
+            ctx.fillText(`4 Acciones Bíblicas Recomendadas (NTV) para ${participantName}:`, 70, sectionTitleY);
+
+            // Tarjetas de Acciones (2 columnas x 2 filas)
+            const cardWidth = 515;
+            const cardHeight = 345;
+            const startX = 65;
+            const startY = sectionTitleY + 25;
+            const gapX = 40;
+            const gapY = 25;
+
+            data.actions.forEach((item, idx) => {
+                const col = idx % 2;
+                const row = Math.floor(idx / 2);
+                const x = startX + col * (cardWidth + gapX);
+                const y = startY + row * (cardHeight + gapY);
+
+                // Tarjeta Blanca
+                ctx.fillStyle = pal.cardBg;
+                ctx.shadowColor = "rgba(0,0,0,0.04)";
+                ctx.shadowBlur = 15;
+                ctx.shadowOffsetY = 8;
+                roundRect(ctx, x, y, cardWidth, cardHeight, 22, true, false);
+                ctx.shadowColor = "transparent";
+                ctx.strokeStyle = pal.cardBorder;
+                ctx.lineWidth = 2;
+                roundRect(ctx, x, y, cardWidth, cardHeight, 22, false, true);
+
+                // Badge Número
+                ctx.fillStyle = pal.badgeBg;
+                roundRect(ctx, x + 20, y + 20, 34, 34, 10, true, false);
+                ctx.fillStyle = pal.badgeText;
+                ctx.font = "900 18px 'Plus Jakarta Sans', sans-serif";
+                ctx.textAlign = "center";
+                ctx.fillText(item.number, x + 37, y + 43);
+
+                // Tag
+                ctx.fillStyle = pal.pillBg;
+                roundRect(ctx, x + cardWidth - 160, y + 20, 140, 30, 8, true, false);
+                ctx.fillStyle = pal.pillText;
+                ctx.font = "800 12px 'Plus Jakarta Sans', sans-serif";
+                ctx.textAlign = "center";
+                ctx.fillText(item.tag.toUpperCase(), x + cardWidth - 90, y + 40);
+
+                // Título de la acción
+                ctx.fillStyle = "#0f172a";
+                ctx.font = "800 19px 'Outfit', sans-serif";
+                ctx.textAlign = "left";
+                wrapText(ctx, item.title, x + 20, y + 80, cardWidth - 40, 23, false);
+
+                // Descripción de la acción
+                ctx.fillStyle = "#334155";
+                ctx.font = "500 15px 'Plus Jakarta Sans', sans-serif";
+                wrapText(ctx, item.action, x + 20, y + 138, cardWidth - 40, 21, false);
+
+                // Caja del Versículo Bíblico (NTV)
+                const verseBoxY = y + 215;
+                const verseBoxH = 110;
+                ctx.fillStyle = pal.verseBg;
+                roundRect(ctx, x + 16, verseBoxY, cardWidth - 32, verseBoxH, 14, true, false);
+                ctx.strokeStyle = pal.verseBorder;
+                ctx.lineWidth = 1;
+                roundRect(ctx, x + 16, verseBoxY, cardWidth - 32, verseBoxH, 14, false, true);
+
+                // Texto del versículo y referencia
+                ctx.fillStyle = pal.verseText;
+                ctx.font = "italic 13.5px 'Plus Jakarta Sans', sans-serif";
+                wrapText(ctx, item.verse, x + 30, verseBoxY + 28, cardWidth - 60, 18, false);
+
+                ctx.font = "800 13px 'Plus Jakarta Sans', sans-serif";
+                ctx.fillText("— " + item.ref, x + 30, verseBoxY + verseBoxH - 14);
+            });
+
+            // 5. Pie de página decorativo
+            const footerY = height - 90;
+            ctx.fillStyle = "#ffffff";
+            roundRect(ctx, 60, footerY, width - 120, 60, 16, true, false);
+            ctx.strokeStyle = pal.heroBorder;
+            ctx.lineWidth = 1.5;
+            roundRect(ctx, 60, footerY, width - 120, 60, 16, false, true);
+
+            ctx.fillStyle = "#475569";
+            ctx.font = "700 15px 'Plus Jakarta Sans', sans-serif";
+            ctx.textAlign = "center";
+            ctx.fillText("Con tu cónyuge: Tomen 15 minutos, lean estas 4 acciones y practiquen una esta semana.", width / 2, footerY + 36);
+
+            // 6. Descarga directa en archivo PNG
+            const dataUrl = canvas.toDataURL('image/png');
+            const cleanName = participantName.toLowerCase().replace(/[^a-z0-9]/gi, '_');
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.href = dataUrl;
+            downloadAnchor.download = `Tips_Matrimonio_${cleanName}_${seasonKey}.png`;
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            document.body.removeChild(downloadAnchor);
+        }
+
+        // Utilidad para dibujar rectángulos redondeados en canvas
+        function roundRect(ctx, x, y, width, height, radius, fill, stroke) {
+            ctx.beginPath();
+            ctx.moveTo(x + radius, y);
+            ctx.lineTo(x + width - radius, y);
+            ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+            ctx.lineTo(x + width, y + height - radius);
+            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+            ctx.lineTo(x + radius, y + height);
+            ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+            ctx.lineTo(x, y + radius);
+            ctx.quadraticCurveTo(x, y, x + radius, y);
+            ctx.closePath();
+            if (fill) ctx.fill();
+            if (stroke) ctx.stroke();
+        }
+
+        // Utilidad para ajustar texto multilínea en canvas
+        function wrapText(ctx, text, x, y, maxWidth, lineHeight, isCentered) {
+            const words = text.split(' ');
+            let line = '';
+            let currentY = y;
+
+            for (let n = 0; n < words.length; n++) {
+                const testLine = line + words[n] + ' ';
+                const metrics = ctx.measureText(testLine);
+                const testWidth = metrics.width;
+                if (testWidth > maxWidth && n > 0) {
+                    if (isCentered) {
+                        ctx.textAlign = "center";
+                        ctx.fillText(line.trim(), x, currentY);
+                    } else {
+                        ctx.textAlign = "left";
+                        ctx.fillText(line.trim(), x, currentY);
+                    }
+                    line = words[n] + ' ';
+                    currentY += lineHeight;
+                } else {
+                    line = testLine;
+                }
+            }
+            if (isCentered) {
+                ctx.textAlign = "center";
+                ctx.fillText(line.trim(), x, currentY);
+            } else {
+                ctx.textAlign = "left";
+                ctx.fillText(line.trim(), x, currentY);
+            }
+        }
+
+        function restartQuiz() {
+            userAnswers = {};
+            currentQuestionIndex = 0;
+            currentSeasonKey = "";
+            document.getElementById('userNameInput').value = '';
+            document.getElementById('screen-result').classList.add('hidden');
+            document.getElementById('screen-quiz').classList.add('hidden');
+            document.getElementById('screen-welcome').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
