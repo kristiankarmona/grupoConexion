@@ -167,18 +167,23 @@
     <div class="pointer-events-none absolute top-1/2 -left-20 w-[260px] h-[260px] bg-secondary-container/15 rounded-full blur-[90px]"></div>
 
     <!-- SHARED COMPONENT 1: TopAppBar -->
-    <header class="sticky top-0 z-40 bg-surface/80 dark:bg-surface/80 backdrop-blur-md border-b border-outline-variant/30 flex justify-between items-center w-full px-margin-mobile h-14">
-      <div class="flex items-center gap-2 min-w-0">
-        <button class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary transition-colors duration-200 active:scale-95 flex items-center justify-center p-1 rounded-full shrink-0" type="button">
-          <span class="material-symbols-outlined notranslate" translate="no" data-icon="lens_blur">lens_blur</span>
-        </button>
-        <span class="text-headline-md font-headline-md tracking-wider text-primary dark:text-primary truncate">R07-Olor Fragante</span>
+    <header class="sticky top-0 z-40 bg-surface/80 dark:bg-surface/80 backdrop-blur-md border-b border-outline-variant/30 flex flex-col w-full px-margin-mobile py-2.5 gap-1">
+      <div class="flex justify-between items-center w-full">
+        <div class="flex items-center gap-2 min-w-0">
+          <button class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary transition-colors duration-200 active:scale-95 flex items-center justify-center p-1 rounded-full shrink-0" type="button">
+            <span class="material-symbols-outlined notranslate" translate="no" data-icon="lens_blur">lens_blur</span>
+          </button>
+          <span class="text-headline-md font-headline-md tracking-wider text-primary dark:text-primary truncate">R07-Olor Fragante</span>
+        </div>
+        <div class="flex items-center gap-2 shrink-0">
+          <span class="hidden text-[10px] font-code-metric px-2 py-0.5 rounded-full bg-primary-container/10 text-primary-container border border-primary-container/30" id="cache-indicator" title="Datos recordados del día anterior">
+            MEMORIA ACTIVA
+          </span>
+        </div>
       </div>
-      <div class="flex items-center gap-2 shrink-0">
-        <span class="hidden text-[10px] font-code-metric px-2 py-0.5 rounded-full bg-primary-container/10 text-primary-container border border-primary-container/30" id="cache-indicator" title="Datos recordados del día anterior">
-          MEMORIA ACTIVA
-        </span>
-      </div>
+      <p class="text-[11px] leading-snug text-on-surface-variant/85 italic pl-8 pr-1">
+        "Dios mío, tú eres mi Dios. Con ansias te busco desde que amanece, como quien busca una fuente en el más ardiente desierto." <span class="not-italic font-code-metric text-primary-container/90 font-medium">Salmos 63:1</span>
+      </p>
     </header>
 
     <!-- Main Content Canvas -->
