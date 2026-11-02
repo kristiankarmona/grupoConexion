@@ -243,11 +243,11 @@
         </div>
       </section>
 
-      <!-- CAMPO 3: GRABADOR DE AUDIO CON MICRÓFONO (TRANSCRIPCIÓN OCULTA EN UI) -->
+      <!-- CAMPO 3: GRABADOR DE AUDIO CON MICRÓFONO Y CUADRO DE TEXTO EDITABLE -->
       <section class="p-5 rounded-xl bg-surface-container/70 border border-outline-variant/30 backdrop-blur-md relative overflow-hidden flex flex-col items-center">
         <!-- Label Exacto -->
         <div class="w-full flex items-center justify-between mb-3">
-          <label class="text-label-caps font-label-caps text-primary-container tracking-wider">
+          <label class="text-label-caps font-label-caps text-primary-container tracking-wider" for="transcript-textarea">
             Que te hablo Dios en este dia
           </label>
           <span class="text-[11px] font-code-metric text-on-surface-variant flex items-center gap-1.5" id="recording-badge">
@@ -255,7 +255,7 @@
           </span>
         </div>
 
-        <!-- Soundwave Visualizer Bars (No muestra el texto transcrito, solo actividad de voz) -->
+        <!-- Soundwave Visualizer Bars -->
         <div class="w-full h-9 flex items-center justify-center gap-1.5 my-1 opacity-60 transition-opacity duration-300" id="visualizer-container">
           <div class="wave-bar w-1 h-2 rounded-full bg-primary-container/70 transition-all"></div>
           <div class="wave-bar w-1 h-3 rounded-full bg-primary-container/80 transition-all"></div>
@@ -282,15 +282,29 @@
           </button>
         </div>
 
-        <!-- Recording State Text Prompt (Nunca muestra la transcripción, solo estado del audio) -->
+        <!-- Recording State Text Prompt -->
         <p class="text-body-sm text-on-surface-variant/80 text-center mt-2 transition-colors duration-200" id="mic-status-label">
           Toca el micrófono para grabar tu aprendizaje
         </p>
 
-        <!-- Botón sutil para reiniciar grabación si desea volver a empezar desde cero -->
-        <button class="mt-2 text-[11px] font-code-metric text-on-surface-variant/60 hover:text-error underline hidden transition-colors" id="btn-reset-audio" type="button">
-          Borrar grabación y grabar de nuevo
-        </button>
+        <!-- Cuadro de texto editable con la transcripción -->
+        <div class="w-full mt-4 pt-3 border-t border-outline-variant/25">
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="text-[11px] font-label-caps text-on-surface-variant/80 tracking-wider flex items-center gap-1">
+              <span class="material-symbols-outlined notranslate text-xs text-primary-container" translate="no">edit_note</span>
+              Transcripción (puedes editar o corregir antes de guardar)
+            </span>
+            <button class="text-[11px] font-code-metric text-on-surface-variant/60 hover:text-error underline hidden transition-colors" id="btn-reset-audio" type="button">
+              Limpiar
+            </button>
+          </div>
+          <textarea
+            class="w-full rounded-xl bg-surface-container-lowest/90 border border-outline-variant/40 focus:border-primary-container focus:ring-1 focus:ring-primary-container/40 text-body-md text-on-surface placeholder:text-on-surface-variant/35 placeholder:italic p-3 leading-relaxed resize-y transition-all duration-200"
+            id="transcript-textarea"
+            placeholder="Aquí aparecerá lo que hables por el micrófono, o también puedes escribir/editar directamente..."
+            rows="4"
+          ></textarea>
+        </div>
       </section>
 
       <!-- MENSAJE DE ESTADO / ALERTA -->
@@ -347,6 +361,7 @@
       const visualizer = document.getElementById('visualizer-container');
       const waveBars = document.querySelectorAll('.wave-bar');
       const btnResetAudio = document.getElementById('btn-reset-audio');
+      const transcriptTextarea = document.getElementById('transcript-textarea');
 
       const btnSubmit = document.getElementById('btn-submit');
       const statusAlert = document.getElementById('status-alert');
@@ -467,15 +482,14 @@
       }, { passive: true });
 
       // =========================================================================
-      // 3. GRABACIÓN DE VOZ Y TRANSCRIPCIÓN SILENCIOSA (NO SE MUESTRA EN UI)
+      // 3. GRABACIÓN DE VOZ Y CUADRO DE TEXTO EDITABLE
       // =========================================================================
       let isRecording = false;
       let recordInterval = null;
       let secondsElapsed = 0;
 
-      // Transcripción almacenada únicamente en memoria interna para enviarse a "Dios_que_hablo"
       // En Android Chrome, SpeechRecognition acumula resultados progresivos ("hoy", "hoy aprendí", "hoy aprendí acerca...").
-      // Por eso reconstruimos el texto por sesión y limpiamos prefijos superpuestos.
+      // Reconstruimos el texto por sesión, limpiamos prefijos superpuestos y lo sincronizamos con el cuadro de texto editable.
       let completedSessions = [];
       let currentSessionText = '';
       let lastSpeechError = null;
@@ -521,6 +535,30 @@
         return cleaned.join(' ').replace(/\s+/g, ' ').trim();
       }
 
+      function syncTextareaFromSpeech() {
+        const allParts = [...completedSessions];
+        if (currentSessionText.trim()) {
+          allParts.push(currentSessionText.trim());
+        }
+        const merged = mergeProgressiveSegments(allParts);
+        transcriptTextarea.value = merged;
+        if (merged.length > 0) {
+          btnResetAudio.classList.remove('hidden');
+        }
+      }
+
+      // Si el usuario edita manualmente el cuadro de texto, sincronizar su contenido como base
+      transcriptTextarea.addEventListener('input', () => {
+        const manualVal = transcriptTextarea.value.trim();
+        completedSessions = manualVal ? [manualVal] : [];
+        currentSessionText = '';
+        if (manualVal.length > 0) {
+          btnResetAudio.classList.remove('hidden');
+        } else {
+          btnResetAudio.classList.add('hidden');
+        }
+      });
+
       function setupSpeechRecognition() {
         if (!SpeechRecognition) return null;
         const rec = new SpeechRecognition();
@@ -540,6 +578,7 @@
             }
           }
           currentSessionText = mergeProgressiveSegments(rawPieces);
+          syncTextareaFromSpeech();
         };
 
         rec.onerror = (event) => {
@@ -558,6 +597,7 @@
             completedSessions.push(currentSessionText.trim());
             completedSessions = [mergeProgressiveSegments(completedSessions)];
             currentSessionText = '';
+            syncTextareaFromSpeech();
           }
 
           // Si el usuario sigue en modo grabación, reiniciar escucha continua
@@ -574,11 +614,7 @@
       }
 
       function getCapturedTranscript() {
-        const allParts = [...completedSessions];
-        if (currentSessionText.trim()) {
-          allParts.push(currentSessionText.trim());
-        }
-        return mergeProgressiveSegments(allParts);
+        return transcriptTextarea.value.replace(/\s+/g, ' ').trim();
       }
 
       function startRecording() {
@@ -587,6 +623,11 @@
           showStatus('Tu navegador no soporta reconocimiento de voz directo. Por favor usa Google Chrome, Edge o Safari.', 'error');
           return;
         }
+
+        // Respetar lo que el usuario ya haya escrito o editado en el cuadro de texto antes de continuar grabando
+        const existingText = transcriptTextarea.value.trim();
+        completedSessions = existingText ? [existingText] : [];
+        currentSessionText = '';
 
         // Importante: NO usar getUserMedia simultáneamente con SpeechRecognition
         // porque en Windows/Android bloquea el canal de audio del motor de transcripción.
@@ -617,7 +658,6 @@
         recordingBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-error animate-ping"></span> GRABANDO`;
         visualizer.classList.remove('opacity-60');
         visualizer.classList.add('opacity-100');
-        btnResetAudio.classList.add('hidden');
 
         // Animar barras de onda
         waveBars.forEach((bar, idx) => {
@@ -643,6 +683,7 @@
           completedSessions.push(currentSessionText.trim());
           completedSessions = [mergeProgressiveSegments(completedSessions)];
           currentSessionText = '';
+          syncTextareaFromSpeech();
         }
 
         if (recognition) {
@@ -668,17 +709,16 @@
         setTimeout(() => {
           const hasAudioText = getCapturedTranscript().length > 0;
           if (hasAudioText) {
-            micStatusLabel.textContent = "Audio procesado y listo para guardar (Toca para continuar grabando)";
+            micStatusLabel.textContent = "Revisa o edita tu texto abajo antes de guardar";
             micStatusLabel.classList.remove('text-primary-container');
             recordingBadge.classList.remove('text-error');
             recordingBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span> AUDIO LISTO`;
             btnResetAudio.classList.remove('hidden');
           } else if (secondsElapsed > 0) {
-            micStatusLabel.textContent = "No se detectó voz en el micrófono (Toca para intentar de nuevo)";
+            micStatusLabel.textContent = "No se detectó voz (Toca para grabar o escribe abajo)";
             micStatusLabel.classList.remove('text-primary-container');
             recordingBadge.classList.remove('text-error');
             recordingBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-error"></span> SIN VOZ`;
-            btnResetAudio.classList.remove('hidden');
             if (window.location.protocol === 'file:') {
               showStatus('Nota: Abriste el archivo como file://. En Chrome/Windows el transcriptor de voz requiere abrirse desde http://localhost o publicarse en web.', 'error');
             }
@@ -701,6 +741,7 @@
       btnResetAudio.addEventListener('click', () => {
         completedSessions = [];
         currentSessionText = '';
+        transcriptTextarea.value = '';
         secondsElapsed = 0;
         recordTimer.textContent = '00:00';
         micStatusLabel.textContent = 'Toca el micrófono para grabar tu aprendizaje';
@@ -796,9 +837,10 @@
           btnSubmit.classList.remove('from-primary-container/90', 'to-secondary');
           btnSubmit.classList.add('bg-primary-container', 'text-on-primary-fixed');
 
-          // Limpiar solo el audio para una nueva sesión (el nombre y los minutos quedan en caché)
+          // Limpiar solo el audio/texto para una nueva sesión (el nombre y los minutos quedan en caché)
           completedSessions = [];
           currentSessionText = '';
+          transcriptTextarea.value = '';
           secondsElapsed = 0;
           recordTimer.textContent = '00:00';
           micStatusLabel.textContent = 'Registro enviado a Google Sheets';
