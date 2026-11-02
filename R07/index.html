@@ -178,10 +178,6 @@
         <span class="hidden text-[10px] font-code-metric px-2 py-0.5 rounded-full bg-primary-container/10 text-primary-container border border-primary-container/30" id="cache-indicator" title="Datos recordados del día anterior">
           MEMORIA ACTIVA
         </span>
-        <button aria-label="Configurar conexión Google Sheet" class="text-on-surface-variant hover:text-primary-container transition-colors duration-200 active:scale-95 flex items-center justify-center p-1.5 rounded-full relative" id="btn-settings" title="Configurar conexión a Google Sheets" type="button">
-          <span class="material-symbols-outlined notranslate text-lg" translate="no" data-icon="settings">settings</span>
-          <span class="w-2 h-2 rounded-full bg-primary-container absolute top-1 right-1 hidden" id="sheet-connected-dot"></span>
-        </button>
       </div>
     </header>
 
@@ -308,49 +304,6 @@
         </button>
       </section>
     </main>
-
-    <!-- MODAL DE CONFIGURACIÓN DE GOOGLE SHEETS (registros de r07) -->
-    <div aria-hidden="true" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm hidden items-center justify-center p-4" id="settings-modal">
-      <div class="w-full max-w-[390px] rounded-2xl bg-surface-container border border-outline-variant/40 p-5 shadow-2xl">
-        <div class="flex items-center justify-between mb-3">
-          <div class="flex items-center gap-2">
-            <span class="material-symbols-outlined notranslate text-primary-container" translate="no">table_View</span>
-            <h2 class="font-headline-md text-base text-primary">Conexión Google Sheets</h2>
-          </div>
-          <button class="text-on-surface-variant hover:text-primary p-1" id="btn-close-modal" type="button">
-            <span class="material-symbols-outlined notranslate" translate="no">close</span>
-          </button>
-        </div>
-
-        <p class="text-body-sm text-on-surface-variant mb-3">
-          Conecta la aplicación con tu hoja <strong class="text-primary">registros de r07</strong> pegando la URL de tu Web App de Google Apps Script.
-        </p>
-
-        <label class="text-label-caps font-label-caps text-primary-container block mb-1.5" for="script-url-input">
-          URL del Web App (Apps Script)
-        </label>
-        <input class="w-full rounded-lg bg-surface-container-lowest border border-outline-variant/50 focus:border-primary-container focus:ring-0 text-body-sm text-on-surface p-2.5 mb-3 font-code-metric" id="script-url-input" placeholder="https://script.google.com/macros/s/.../exec" type="url">
-
-        <div class="rounded-lg bg-surface-container-lowest/90 border border-outline-variant/30 p-3 mb-4 text-xs text-on-surface-variant space-y-1.5">
-          <p class="text-primary font-medium">Columnas que se guardan automáticamente:</p>
-          <ul class="list-disc list-inside space-y-0.5 font-code-metric text-[11px]">
-            <li>Fecha_Hora (Automática)</li>
-            <li>Nombre (Guardado en caché)</li>
-            <li>Tiempo_Destinado_Minutos (Guardado en caché)</li>
-            <li>Dios_que_hablo (Transcripción oculta)</li>
-          </ul>
-        </div>
-
-        <div class="flex items-center justify-end gap-2">
-          <button class="px-4 py-2 rounded-lg bg-surface-container-high text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" id="btn-cancel-settings" type="button">
-            Cancelar
-          </button>
-          <button class="px-4 py-2 rounded-lg bg-primary-container text-surface-container-lowest font-semibold text-body-sm hover:opacity-90 transition-opacity" id="btn-save-settings" type="button">
-            Guardar conexión
-          </button>
-        </div>
-      </div>
-    </div>
   </div>
 
   <!-- Lógica de Aplicación R07 -->
@@ -398,15 +351,6 @@
       const btnSubmit = document.getElementById('btn-submit');
       const statusAlert = document.getElementById('status-alert');
 
-      // Modal Settings
-      const btnSettings = document.getElementById('btn-settings');
-      const settingsModal = document.getElementById('settings-modal');
-      const btnCloseModal = document.getElementById('btn-close-modal');
-      const btnCancelSettings = document.getElementById('btn-cancel-settings');
-      const btnSaveSettings = document.getElementById('btn-save-settings');
-      const scriptUrlInput = document.getElementById('script-url-input');
-      const sheetConnectedDot = document.getElementById('sheet-connected-dot');
-
       // =========================================================================
       // 1. GESTIÓN DE CACHÉ (NOMBRE Y MINUTOS PERSISTIDOS PARA EL DÍA SIGUIENTE)
       // =========================================================================
@@ -435,7 +379,6 @@
         }
 
         updateMinutesUI(currentMinutes, false);
-        updateConnectionIndicator();
       }
 
       function savePreferencesToCache() {
@@ -766,46 +709,11 @@
       });
 
       // =========================================================================
-      // 4. CONFIGURACIÓN DEL CONECTOR DE GOOGLE SHEETS ("registros de r07")
+      // 4. CONECTOR DE GOOGLE SHEETS ("registros de r07")
       // =========================================================================
       function getScriptUrl() {
-        return (localStorage.getItem(STORAGE_KEYS.SCRIPT_URL) || DEFAULT_SCRIPT_URL).trim();
+        return DEFAULT_SCRIPT_URL.trim();
       }
-
-      function updateConnectionIndicator() {
-        if (getScriptUrl()) {
-          sheetConnectedDot.classList.remove('hidden');
-        } else {
-          sheetConnectedDot.classList.add('hidden');
-        }
-      }
-
-      function openSettingsModal() {
-        scriptUrlInput.value = getScriptUrl();
-        settingsModal.classList.remove('hidden');
-        settingsModal.classList.add('flex');
-      }
-
-      function closeSettingsModal() {
-        settingsModal.classList.add('hidden');
-        settingsModal.classList.remove('flex');
-      }
-
-      btnSettings.addEventListener('click', openSettingsModal);
-      btnCloseModal.addEventListener('click', closeSettingsModal);
-      btnCancelSettings.addEventListener('click', closeSettingsModal);
-
-      btnSaveSettings.addEventListener('click', () => {
-        const url = scriptUrlInput.value.trim();
-        if (url) {
-          localStorage.setItem(STORAGE_KEYS.SCRIPT_URL, url);
-          showStatus('Conexión con Google Sheet "registros de r07" guardada.', 'info');
-        } else {
-          localStorage.removeItem(STORAGE_KEYS.SCRIPT_URL);
-        }
-        updateConnectionIndicator();
-        closeSettingsModal();
-      });
 
       // =========================================================================
       // 5. ALERTAS Y ENVÍO DE DATOS A GOOGLE SHEETS
@@ -847,11 +755,6 @@
         }
 
         const scriptUrl = getScriptUrl();
-        if (!scriptUrl) {
-          openSettingsModal();
-          showStatus('Configura primero la URL de tu Google Apps Script para guardar en "registros de r07".', 'error');
-          return;
-        }
 
         // Persistir en caché el nombre y el tiempo destinado para el día siguiente
         savePreferencesToCache();
