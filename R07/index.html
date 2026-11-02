@@ -531,12 +531,52 @@
       let secondsElapsed = 0;
 
       // Transcripción almacenada únicamente en memoria interna para enviarse a "Dios_que_hablo"
-      let finalSegments = [];
-      let hiddenInterimTranscript = '';
+      // En Android Chrome, SpeechRecognition acumula resultados progresivos ("hoy", "hoy aprendí", "hoy aprendí acerca...").
+      // Por eso reconstruimos el texto por sesión y limpiamos prefijos superpuestos.
+      let completedSessions = [];
+      let currentSessionText = '';
       let lastSpeechError = null;
       let recognition = null;
 
       const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+      /**
+       * Une fragmentos evitando la duplicación progresiva típica de Chrome en Android
+       * (ej. ["hoy", "hoy aprendí", "hoy aprendí acerca"] -> "hoy aprendí acerca")
+       */
+      function mergeProgressiveSegments(segments) {
+        const cleaned = [];
+        for (const raw of segments) {
+          const seg = raw.replace(/\s+/g, ' ').trim();
+          if (!seg) continue;
+
+          if (cleaned.length === 0) {
+            cleaned.push(seg);
+            continue;
+          }
+
+          const prev = cleaned[cleaned.length - 1];
+          const prevLower = prev.toLowerCase();
+          const segLower = seg.toLowerCase();
+
+          // Caso 1: El nuevo segmento es exactamente igual al anterior -> ignorar
+          if (segLower === prevLower) {
+            continue;
+          }
+          // Caso 2: El nuevo segmento contiene y amplía al anterior (acumulación progresiva de Android) -> reemplazar el anterior
+          if (segLower.startsWith(prevLower)) {
+            cleaned[cleaned.length - 1] = seg;
+            continue;
+          }
+          // Caso 3: El anterior ya contenía al nuevo (retroceso parcial del motor) -> ignorar el nuevo
+          if (prevLower.startsWith(segLower)) {
+            continue;
+          }
+
+          cleaned.push(seg);
+        }
+        return cleaned.join(' ').replace(/\s+/g, ' ').trim();
+      }
 
       function setupSpeechRecognition() {
         if (!SpeechRecognition) return null;
@@ -548,33 +588,33 @@
 
         rec.onresult = (event) => {
           lastSpeechError = null;
-          let currentInterim = '';
-          for (let i = event.resultIndex; i < event.results.length; ++i) {
-            const segment = event.results[i][0].transcript.trim();
-            if (event.results[i].isFinal) {
-              if (segment) finalSegments.push(segment);
-            } else {
-              currentInterim += segment + ' ';
+          const rawPieces = [];
+          // Recorrer SIEMPRE desde 0 en la sesión actual en vez de hacer push acumulativo en cada evento
+          for (let i = 0; i < event.results.length; ++i) {
+            const piece = event.results[i][0].transcript.trim();
+            if (piece) {
+              rawPieces.push(piece);
             }
           }
-          hiddenInterimTranscript = currentInterim.trim();
+          currentSessionText = mergeProgressiveSegments(rawPieces);
         };
 
         rec.onerror = (event) => {
           lastSpeechError = event.error;
           if (event.error === 'not-allowed' || event.error === 'service-not-allowed') {
             stopRecordingUI();
-            showStatus('Permiso de micrófono denegado o bloqueado. Si abriste el archivo con doble clic (file://), ábrelo mediante un servidor local (http://localhost).', 'error');
+            showStatus('Permiso de micrófono denegado o bloqueado. Verifica los permisos del navegador.', 'error');
           } else if (event.error === 'network') {
             showStatus('El servicio de voz del navegador requiere conexión o usar Google Chrome / Edge.', 'error');
           }
         };
 
         rec.onend = () => {
-          // Consolidar cualquier fragmento intermedio antes de que se reinicie el ciclo
-          if (hiddenInterimTranscript.trim()) {
-            finalSegments.push(hiddenInterimTranscript.trim());
-            hiddenInterimTranscript = '';
+          // Al terminar una sesión de voz (ej. pausa en el habla), guardar el texto consolidado de esa sesión
+          if (currentSessionText.trim()) {
+            completedSessions.push(currentSessionText.trim());
+            completedSessions = [mergeProgressiveSegments(completedSessions)];
+            currentSessionText = '';
           }
 
           // Si el usuario sigue en modo grabación, reiniciar escucha continua
@@ -591,11 +631,11 @@
       }
 
       function getCapturedTranscript() {
-        const combined = [...finalSegments];
-        if (hiddenInterimTranscript.trim()) {
-          combined.push(hiddenInterimTranscript.trim());
+        const allParts = [...completedSessions];
+        if (currentSessionText.trim()) {
+          allParts.push(currentSessionText.trim());
         }
-        return combined.join(' ').replace(/\s+/g, ' ').trim();
+        return mergeProgressiveSegments(allParts);
       }
 
       function startRecording() {
@@ -656,9 +696,10 @@
         isRecording = false;
 
         // Respaldar cualquier texto en curso antes de detener el motor
-        if (hiddenInterimTranscript.trim()) {
-          finalSegments.push(hiddenInterimTranscript.trim());
-          hiddenInterimTranscript = '';
+        if (currentSessionText.trim()) {
+          completedSessions.push(currentSessionText.trim());
+          completedSessions = [mergeProgressiveSegments(completedSessions)];
+          currentSessionText = '';
         }
 
         if (recognition) {
@@ -715,8 +756,8 @@
       });
 
       btnResetAudio.addEventListener('click', () => {
-        finalSegments = [];
-        hiddenInterimTranscript = '';
+        completedSessions = [];
+        currentSessionText = '';
         secondsElapsed = 0;
         recordTimer.textContent = '00:00';
         micStatusLabel.textContent = 'Toca el micrófono para grabar tu aprendizaje';
@@ -853,8 +894,8 @@
           btnSubmit.classList.add('bg-primary-container', 'text-on-primary-fixed');
 
           // Limpiar solo el audio para una nueva sesión (el nombre y los minutos quedan en caché)
-          finalSegments = [];
-          hiddenInterimTranscript = '';
+          completedSessions = [];
+          currentSessionText = '';
           secondsElapsed = 0;
           recordTimer.textContent = '00:00';
           micStatusLabel.textContent = 'Registro enviado a Google Sheets';
