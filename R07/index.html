@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html class="dark" lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+  <title>R07 // DEVOCIONAL</title>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Material Symbols Outlined -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-secondary": "#480081",
+            "on-secondary-container": "#dcb7ff",
+            "surface-bright": "#38393f",
+            "on-error-container": "#ffdad6",
+            "tertiary": "#f4f7ff",
+            "tertiary-container": "#c1ddff",
+            "on-surface": "#e3e1e9",
+            "error": "#ffb4ab",
+            "on-primary-container": "#006a70",
+            "outline": "#849495",
+            "tertiary-fixed": "#d0e4ff",
+            "background": "#121318",
+            "inverse-primary": "#00696f",
+            "primary-fixed-dim": "#00dce6",
+            "on-surface-variant": "#b9cacb",
+            "secondary-fixed-dim": "#dcb8ff",
+            "primary": "#e0fdff",
+            "inverse-surface": "#e3e1e9",
+            "surface-tint": "#00dce6",
+            "surface": "#121318",
+            "surface-container": "#1e1f25",
+            "on-primary": "#00373a",
+            "inverse-on-surface": "#2f3036",
+            "on-background": "#e3e1e9",
+            "primary-container": "#00f2fe",
+            "surface-dim": "#121318",
+            "primary-fixed": "#6ff6ff",
+            "secondary": "#dcb8ff",
+            "on-tertiary": "#003256",
+            "on-primary-fixed-variant": "#004f53",
+            "outline-variant": "#3a494b",
+            "on-secondary-fixed": "#2c0051",
+            "error-container": "#93000a",
+            "on-error": "#690005",
+            "surface-variant": "#34343a",
+            "surface-container-low": "#1a1b21",
+            "secondary-container": "#7701d0",
+            "on-primary-fixed": "#002022",
+            "surface-container-lowest": "#0d0e13",
+            "on-tertiary-fixed-variant": "#004a7a",
+            "on-tertiary-fixed": "#001d34",
+            "secondary-fixed": "#efdbff",
+            "tertiary-fixed-dim": "#9bcbff",
+            "on-secondary-fixed-variant": "#6700b5",
+            "surface-container-high": "#292a2f",
+            "surface-container-highest": "#34343a",
+            "on-tertiary-container": "#0063a1"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "margin-mobile": "1rem",
+            "gutter": "1rem",
+            "space-lg": "1.5rem",
+            "space-md": "1rem",
+            "gutter-mobile": "0.75rem",
+            "space-xs": "0.25rem",
+            "margin": "1.5rem",
+            "space-sm": "0.5rem",
+            "space-xl": "2.5rem"
+          },
+          "fontFamily": {
+            "body-lg": ["Inter"],
+            "code-metric": ["JetBrains Mono"],
+            "body-md": ["Inter"],
+            "headline-lg": ["Space Grotesk"],
+            "headline-xl": ["Space Grotesk"],
+            "label-caps": ["JetBrains Mono"],
+            "body-sm": ["Inter"],
+            "headline-md": ["Space Grotesk"],
+            "headline-xl-mobile": ["Space Grotesk"],
+            "headline-lg-mobile": ["Space Grotesk"]
+          },
+          "fontSize": {
+            "body-lg": ["17px", {"lineHeight": "26px", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+            "code-metric": ["14px", {"lineHeight": "18px", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+            "body-md": ["15px", {"lineHeight": "23px", "letterSpacing": "0em", "fontWeight": "400"}],
+            "headline-lg": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "500"}],
+            "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.03em", "fontWeight": "600"}],
+            "label-caps": ["11px", {"lineHeight": "14px", "letterSpacing": "0.12em", "fontWeight": "500"}],
+            "body-sm": ["13px", {"lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "400"}],
+            "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+            "headline-xl-mobile": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+            "headline-lg-mobile": ["22px", {"lineHeight": "30px", "letterSpacing": "-0.01em", "fontWeight": "500"}]
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 20px;
+      line-height: 1;
+      display: inline-block;
+      text-transform: none;
+      letter-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      direction: ltr;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    /* Obsidian Glow Effects */
+    .glow-cyan {
+      filter: drop-shadow(0 0 16px rgba(0, 242, 254, 0.45));
+    }
+    .glow-cyan-subtle {
+      box-shadow: 0 0 25px -4px rgba(0, 242, 254, 0.2);
+    }
+    .glow-pulse {
+      animation: cyanPulse 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    @keyframes cyanPulse {
+      0%, 100% {
+        box-shadow: 0 0 15px rgba(0, 242, 254, 0.25), inset 0 0 10px rgba(0, 242, 254, 0.15);
+        border-color: rgba(0, 242, 254, 0.4);
+      }
+      50% {
+        box-shadow: 0 0 35px rgba(0, 242, 254, 0.65), 0 0 60px rgba(119, 1, 208, 0.3), inset 0 0 20px rgba(0, 242, 254, 0.35);
+        border-color: rgba(0, 242, 254, 0.9);
+      }
+    }
+
+    /* Soundwave bars animation */
+    @keyframes waveMotion {
+      0%, 100% { height: 6px; }
+      50% { height: 28px; }
+    }
+    .wave-active {
+      animation: waveMotion 1.1s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="bg-surface-container-lowest text-on-surface antialiased min-h-screen selection:bg-primary-container selection:text-surface-container-lowest flex justify-center">
+  <!-- Mobile Viewport Container (430px constrain) -->
+  <div class="w-full max-w-[430px] min-h-screen flex flex-col bg-surface-container-lowest relative overflow-x-hidden border-x border-outline-variant/10 shadow-2xl">
+    <!-- Atmospheric Ambient Gradient Background -->
+    <div class="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-[340px] h-[340px] bg-primary-container/10 rounded-full blur-[100px]"></div>
+    <div class="pointer-events-none absolute top-1/2 -left-20 w-[260px] h-[260px] bg-secondary-container/15 rounded-full blur-[90px]"></div>
+
+    <!-- SHARED COMPONENT 1: TopAppBar -->
+    <header class="sticky top-0 z-40 bg-surface/80 dark:bg-surface/80 backdrop-blur-md border-b border-outline-variant/30 flex justify-between items-center w-full px-margin-mobile h-14">
+      <div class="flex items-center gap-2">
+        <button class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary transition-colors duration-200 active:scale-95 flex items-center justify-center p-1 rounded-full" type="button">
+          <span class="material-symbols-outlined" data-icon="lens_blur">lens_blur</span>
+        </button>
+        <span class="text-headline-md font-headline-md tracking-wider text-primary dark:text-primary">R07-Olor Fragante</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="hidden text-[10px] font-code-metric px-2 py-0.5 rounded-full bg-primary-container/10 text-primary-container border border-primary-container/30" id="cache-indicator" title="Datos recordados del día anterior">
+          MEMORIA ACTIVA
+        </span>
+        <button aria-label="Configurar conexión Google Sheet" class="text-on-surface-variant hover:text-primary-container transition-colors duration-200 active:scale-95 flex items-center justify-center p-1.5 rounded-full relative" id="btn-settings" title="Configurar conexión a Google Sheets" type="button">
+          <span class="material-symbols-outlined text-lg" data-icon="settings">settings</span>
+          <span class="w-2 h-2 rounded-full bg-primary-container absolute top-1 right-1 hidden" id="sheet-connected-dot"></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content Canvas -->
+    <main class="flex-1 px-margin-mobile flex flex-col gap-5 pt-3 pb-6">
+
+      <!-- CAMPO 1: NOMBRE -->
+      <section class="p-4 rounded-xl bg-surface-container/70 border border-outline-variant/30 backdrop-blur-md relative overflow-hidden group focus-within:border-primary-container/80 transition-all duration-300">
+        <div class="flex items-center justify-between mb-2">
+          <label class="text-label-caps font-label-caps text-primary-container tracking-wider block" for="user-name-input">
+            Ingresa tu Nombre
+          </label>
+          <span class="text-[11px] font-code-metric text-on-surface-variant/60 hidden" id="cached-name-badge">Recordado</span>
+        </div>
+        <div class="relative flex items-center">
+          <input autocomplete="off" class="w-full bg-transparent border-0 border-b border-outline-variant/40 focus:border-primary-container focus:ring-0 text-headline-md font-headline-md text-on-surface placeholder:text-on-surface-variant/40 placeholder:italic placeholder:font-body-md py-2 pr-8 pl-0 transition-colors duration-200" id="user-name-input" placeholder="Escribe tu nombre..." type="text">
+          <span class="material-symbols-outlined absolute right-0 text-on-surface-variant/40 text-lg pointer-events-none" data-icon="fingerprint">fingerprint</span>
+        </div>
+      </section>
+
+      <!-- CAMPO 2: SELECTOR DE TIEMPO / MINUTOS ESTILO APPLE WATCH -->
+      <section class="p-5 rounded-xl bg-surface-container/70 border border-outline-variant/30 backdrop-blur-md relative flex flex-col items-center">
+        <div class="w-full flex items-center justify-between mb-3">
+          <label class="text-label-caps font-label-caps text-primary-container tracking-wider">Cuanto tiempo destinaste (en minutos)</label>
+        </div>
+
+        <!-- Apple Watch Crown Wheel Interface -->
+        <div class="relative w-full max-w-[280px] my-2 flex items-center justify-center gap-4">
+          <button aria-label="Disminuir minutos" class="w-10 h-10 rounded-full bg-surface-container-high border border-outline-variant/40 hover:border-primary-container text-primary flex items-center justify-center active:scale-90 transition-all glow-cyan-subtle" id="btn-decrement" type="button">
+            <span class="material-symbols-outlined text-sm" data-icon="remove">remove</span>
+          </button>
+
+          <div class="relative w-36 h-48 rounded-2xl bg-surface-container-lowest border-2 border-primary-container/40 shadow-inner flex flex-col items-center justify-center overflow-hidden glow-cyan-subtle cursor-ns-resize select-none" id="crown-wheel" title="Desliza o usa la rueda para cambiar los minutos">
+            <div class="pointer-events-none absolute top-0 inset-x-0 h-12 bg-gradient-to-b from-surface-container-lowest to-transparent z-20"></div>
+            <div class="pointer-events-none absolute bottom-0 inset-x-0 h-12 bg-gradient-to-t from-surface-container-lowest to-transparent z-20"></div>
+            <div class="pointer-events-none absolute inset-x-2 top-1/2 -translate-y-1/2 h-14 rounded-xl border border-primary-container/60 bg-primary-container/10 z-10"></div>
+            <div class="w-full flex flex-col items-center justify-center gap-2 select-none">
+              <span class="font-code-metric text-lg text-on-surface-variant/40 tracking-wider" id="prev-minute">14</span>
+              <div class="flex items-baseline gap-1 z-20 py-1">
+                <span class="font-headline-xl text-3xl font-bold text-primary tracking-tight" id="minutes-display">15</span>
+                <span class="font-code-metric text-xs text-primary-container/80">min</span>
+              </div>
+              <span class="font-code-metric text-lg text-on-surface-variant/40 tracking-wider" id="next-minute">16</span>
+            </div>
+            <div class="absolute bottom-1.5 z-20 flex items-center gap-1 opacity-60">
+              <div class="w-1 h-1 rounded-full bg-primary-container/40"></div>
+              <div class="w-1 h-1 rounded-full bg-primary-container"></div>
+              <div class="w-1 h-1 rounded-full bg-primary-container/40"></div>
+            </div>
+          </div>
+
+          <button aria-label="Aumentar minutos" class="w-10 h-10 rounded-full bg-surface-container-high border border-outline-variant/40 hover:border-primary-container text-primary flex items-center justify-center active:scale-90 transition-all glow-cyan-subtle" id="btn-increment" type="button">
+            <span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+          </button>
+        </div>
+
+        <!-- Wheel Quick Presets Carousel -->
+        <div class="flex items-center justify-center gap-2 mt-3 flex-wrap">
+          <button class="preset-btn px-2.5 py-1 rounded bg-surface-container-high text-label-caps font-label-caps text-on-surface-variant hover:text-primary border border-transparent transition-all" data-val="15" type="button">15m</button>
+          <button class="preset-btn px-2.5 py-1 rounded bg-surface-container-high text-label-caps font-label-caps text-on-surface-variant hover:text-primary border border-transparent transition-all" data-val="30" type="button">30m</button>
+          <button class="preset-btn px-2.5 py-1 rounded bg-surface-container-high text-label-caps font-label-caps text-on-surface-variant hover:text-primary border border-transparent transition-all" data-val="45" type="button">45m</button>
+          <button class="preset-btn px-2.5 py-1 rounded bg-surface-container-high text-label-caps font-label-caps text-on-surface-variant hover:text-primary border border-transparent transition-all" data-val="60" type="button">60m</button>
+        </div>
+      </section>
+
+      <!-- CAMPO 3: GRABADOR DE AUDIO CON MICRÓFONO (TRANSCRIPCIÓN OCULTA EN UI) -->
+      <section class="p-5 rounded-xl bg-surface-container/70 border border-outline-variant/30 backdrop-blur-md relative overflow-hidden flex flex-col items-center">
+        <!-- Label Exacto -->
+        <div class="w-full flex items-center justify-between mb-3">
+          <label class="text-label-caps font-label-caps text-primary-container tracking-wider">
+            Que te hablo Dios en este dia
+          </label>
+          <span class="text-[11px] font-code-metric text-on-surface-variant flex items-center gap-1.5" id="recording-badge">
+            <span class="w-1.5 h-1.5 rounded-full bg-outline" id="rec-dot"></span> EN ESPERA
+          </span>
+        </div>
+
+        <!-- Soundwave Visualizer Bars (No muestra el texto transcrito, solo actividad de voz) -->
+        <div class="w-full h-9 flex items-center justify-center gap-1.5 my-1 opacity-60 transition-opacity duration-300" id="visualizer-container">
+          <div class="wave-bar w-1 h-2 rounded-full bg-primary-container/70 transition-all"></div>
+          <div class="wave-bar w-1 h-3 rounded-full bg-primary-container/80 transition-all"></div>
+          <div class="wave-bar w-1 h-2 rounded-full bg-secondary/80 transition-all"></div>
+          <div class="wave-bar w-1 h-4 rounded-full bg-primary-container transition-all"></div>
+          <div class="wave-bar w-1 h-2 rounded-full bg-primary-container/70 transition-all"></div>
+          <div class="wave-bar w-1 h-3 rounded-full bg-secondary transition-all"></div>
+          <div class="wave-bar w-1 h-2 rounded-full bg-primary-container/90 transition-all"></div>
+          <div class="wave-bar w-1 h-3 rounded-full bg-primary-container/75 transition-all"></div>
+          <div class="wave-bar w-1 h-2 rounded-full bg-secondary/70 transition-all"></div>
+        </div>
+
+        <!-- Timer -->
+        <div class="font-code-metric text-sm text-on-surface-variant mb-2 tracking-widest" id="record-timer">00:00</div>
+
+        <!-- Glowing Interactive Mic Button -->
+        <div class="relative flex items-center justify-center my-2">
+          <!-- Pulsing Rings (Active on recording) -->
+          <div class="absolute -inset-4 rounded-full border border-primary-container/20 opacity-0 transition-opacity duration-500 pointer-events-none" id="mic-ring-outer"></div>
+          <div class="absolute -inset-2 rounded-full border border-primary-container/30 opacity-0 transition-opacity duration-500 pointer-events-none" id="mic-ring-inner"></div>
+          <!-- Central Record Button -->
+          <button aria-label="Grabar audio" class="w-20 h-20 rounded-full bg-surface-container-low border-2 border-outline-variant/60 flex items-center justify-center text-primary-container relative z-10 transition-all duration-300 active:scale-95 shadow-lg group" id="mic-btn" type="button">
+            <span class="material-symbols-outlined text-3xl group-hover:scale-110 transition-transform duration-200" data-icon="mic" id="mic-icon">mic</span>
+          </button>
+        </div>
+
+        <!-- Recording State Text Prompt (Nunca muestra la transcripción, solo estado del audio) -->
+        <p class="text-body-sm text-on-surface-variant/80 text-center mt-2 transition-colors duration-200" id="mic-status-label">
+          Toca el micrófono para grabar tu aprendizaje
+        </p>
+
+        <!-- Botón sutil para reiniciar grabación si desea volver a empezar desde cero -->
+        <button class="mt-2 text-[11px] font-code-metric text-on-surface-variant/60 hover:text-error underline hidden transition-colors" id="btn-reset-audio" type="button">
+          Borrar grabación y grabar de nuevo
+        </button>
+      </section>
+
+      <!-- MENSAJE DE ESTADO / ALERTA -->
+      <div class="hidden rounded-xl p-3 text-body-sm border backdrop-blur-md transition-all duration-300" id="status-alert" role="alert"></div>
+
+      <!-- BOTÓN DE ACCIÓN FINAL (FOOTER CTA) -->
+      <section class="mt-1 mb-4">
+        <button class="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-primary-container/90 via-primary-container to-secondary font-headline-md text-headline-md text-surface-container-lowest font-semibold flex items-center justify-center gap-3 tracking-wide shadow-lg shadow-primary-container/20 hover:shadow-primary-container/40 active:scale-[0.98] transition-all duration-200 relative overflow-hidden group" id="btn-submit" type="button">
+          <div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <span>Guardar mi R07</span>
+        </button>
+      </section>
+    </main>
+
+    <!-- MODAL DE CONFIGURACIÓN DE GOOGLE SHEETS (registros de r07) -->
+    <div aria-hidden="true" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm hidden items-center justify-center p-4" id="settings-modal">
+      <div class="w-full max-w-[390px] rounded-2xl bg-surface-container border border-outline-variant/40 p-5 shadow-2xl">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary-container">table_View</span>
+            <h2 class="font-headline-md text-base text-primary">Conexión Google Sheets</h2>
+          </div>
+          <button class="text-on-surface-variant hover:text-primary p-1" id="btn-close-modal" type="button">
+            <span class="material-symbols-outlined">close</span>
+          </button>
+        </div>
+
+        <p class="text-body-sm text-on-surface-variant mb-3">
+          Conecta la aplicación con tu hoja <strong class="text-primary">registros de r07</strong> pegando la URL de tu Web App de Google Apps Script.
+        </p>
+
+        <label class="text-label-caps font-label-caps text-primary-container block mb-1.5" for="script-url-input">
+          URL del Web App (Apps Script)
+        </label>
+        <input class="w-full rounded-lg bg-surface-container-lowest border border-outline-variant/50 focus:border-primary-container focus:ring-0 text-body-sm text-on-surface p-2.5 mb-3 font-code-metric" id="script-url-input" placeholder="https://script.google.com/macros/s/.../exec" type="url">
+
+        <div class="rounded-lg bg-surface-container-lowest/90 border border-outline-variant/30 p-3 mb-4 text-xs text-on-surface-variant space-y-1.5">
+          <p class="text-primary font-medium">Columnas que se guardan automáticamente:</p>
+          <ul class="list-disc list-inside space-y-0.5 font-code-metric text-[11px]">
+            <li>Fecha_Hora (Automática)</li>
+            <li>Nombre (Guardado en caché)</li>
+            <li>Tiempo_Destinado_Minutos (Guardado en caché)</li>
+            <li>Dios_que_hablo (Transcripción oculta)</li>
+          </ul>
+        </div>
+
+        <div class="flex items-center justify-end gap-2">
+          <button class="px-4 py-2 rounded-lg bg-surface-container-high text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" id="btn-cancel-settings" type="button">
+            Cancelar
+          </button>
+          <button class="px-4 py-2 rounded-lg bg-primary-container text-surface-container-lowest font-semibold text-body-sm hover:opacity-90 transition-opacity" id="btn-save-settings" type="button">
+            Guardar conexión
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lógica de Aplicación R07 -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // =========================================================================
+      // CONSTANTES Y CLAVES DE CACHÉ (LOCALSTORAGE)
+      // =========================================================================
+      // Si deseas dejar fija la URL de tu Google Apps Script en el código para que ningún
+      // usuario tenga que configurarla manualmente, pégala dentro de DEFAULT_SCRIPT_URL:
+      const DEFAULT_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw3VjDOb-Fei_4RNNOQ7WEWwxyXpPFacyQsuShvwljI4mGuZlX5NyaV8sOmhxlSicg/exec";
+
+      const STORAGE_KEYS = {
+        USER_NAME: 'r07_cached_user_name',
+        MINUTES: 'r07_cached_minutes',
+        SCRIPT_URL: 'r07_google_script_url'
+      };
+
+      // =========================================================================
+      // ELEMENTOS DEL DOM
+      // =========================================================================
+      const userNameInput = document.getElementById('user-name-input');
+      const cachedNameBadge = document.getElementById('cached-name-badge');
+      const cacheIndicator = document.getElementById('cache-indicator');
+
+      const minutesDisplay = document.getElementById('minutes-display');
+      const prevMinuteDisplay = document.getElementById('prev-minute');
+      const nextMinuteDisplay = document.getElementById('next-minute');
+      const btnIncrement = document.getElementById('btn-increment');
+      const btnDecrement = document.getElementById('btn-decrement');
+      const crownWheel = document.getElementById('crown-wheel');
+      const presetBtns = document.querySelectorAll('.preset-btn');
+
+      const micBtn = document.getElementById('mic-btn');
+      const micIcon = document.getElementById('mic-icon');
+      const micStatusLabel = document.getElementById('mic-status-label');
+      const micRingOuter = document.getElementById('mic-ring-outer');
+      const micRingInner = document.getElementById('mic-ring-inner');
+      const recordTimer = document.getElementById('record-timer');
+      const recordingBadge = document.getElementById('recording-badge');
+      const visualizer = document.getElementById('visualizer-container');
+      const waveBars = document.querySelectorAll('.wave-bar');
+      const btnResetAudio = document.getElementById('btn-reset-audio');
+
+      const btnSubmit = document.getElementById('btn-submit');
+      const statusAlert = document.getElementById('status-alert');
+
+      // Modal Settings
+      const btnSettings = document.getElementById('btn-settings');
+      const settingsModal = document.getElementById('settings-modal');
+      const btnCloseModal = document.getElementById('btn-close-modal');
+      const btnCancelSettings = document.getElementById('btn-cancel-settings');
+      const btnSaveSettings = document.getElementById('btn-save-settings');
+      const scriptUrlInput = document.getElementById('script-url-input');
+      const sheetConnectedDot = document.getElementById('sheet-connected-dot');
+
+      // =========================================================================
+      // 1. GESTIÓN DE CACHÉ (NOMBRE Y MINUTOS PERSISTIDOS PARA EL DÍA SIGUIENTE)
+      // =========================================================================
+      let currentMinutes = 15;
+      const maxMinutes = 180;
+      const minMinutes = 1;
+
+      function loadCachedPreferences() {
+        const savedName = localStorage.getItem(STORAGE_KEYS.USER_NAME);
+        const savedMinutes = localStorage.getItem(STORAGE_KEYS.MINUTES);
+        let hasCache = false;
+
+        if (savedName && savedName.trim() !== '') {
+          userNameInput.value = savedName;
+          cachedNameBadge.classList.remove('hidden');
+          hasCache = true;
+        }
+
+        if (savedMinutes !== null && !isNaN(parseInt(savedMinutes, 10))) {
+          currentMinutes = parseInt(savedMinutes, 10);
+          hasCache = true;
+        }
+
+        if (hasCache) {
+          cacheIndicator.classList.remove('hidden');
+        }
+
+        updateMinutesUI(currentMinutes, false);
+        updateConnectionIndicator();
+      }
+
+      function savePreferencesToCache() {
+        const cleanName = userNameInput.value.trim();
+        if (cleanName) {
+          localStorage.setItem(STORAGE_KEYS.USER_NAME, cleanName);
+          cachedNameBadge.classList.remove('hidden');
+        }
+        localStorage.setItem(STORAGE_KEYS.MINUTES, String(currentMinutes));
+        cacheIndicator.classList.remove('hidden');
+      }
+
+      // Guardar nombre en caché a medida que el usuario escribe
+      userNameInput.addEventListener('input', () => {
+        const val = userNameInput.value.trim();
+        localStorage.setItem(STORAGE_KEYS.USER_NAME, val);
+        if (val) {
+          cachedNameBadge.classList.remove('hidden');
+          cacheIndicator.classList.remove('hidden');
+        } else {
+          cachedNameBadge.classList.add('hidden');
+        }
+      });
+
+      // =========================================================================
+      // 2. SELECTOR DE TIEMPO / MINUTOS ESTILO APPLE WATCH
+      // =========================================================================
+      function formatMin(val) {
+        return val < 10 ? '0' + val : String(val);
+      }
+
+      function updateMinutesUI(val, persist = true) {
+        currentMinutes = Math.max(minMinutes, Math.min(maxMinutes, val));
+        minutesDisplay.textContent = formatMin(currentMinutes);
+        prevMinuteDisplay.textContent = currentMinutes > minMinutes ? formatMin(currentMinutes - 1) : '--';
+        nextMinuteDisplay.textContent = currentMinutes < maxMinutes ? formatMin(currentMinutes + 1) : '--';
+
+        if (persist) {
+          localStorage.setItem(STORAGE_KEYS.MINUTES, String(currentMinutes));
+          cacheIndicator.classList.remove('hidden');
+        }
+
+        // Actualizar botones de acceso rápido (presets)
+        presetBtns.forEach(btn => {
+          if (parseInt(btn.getAttribute('data-val'), 10) === currentMinutes) {
+            btn.className = "preset-btn px-2.5 py-1 rounded bg-primary-container/15 text-label-caps font-label-caps text-primary-container border border-primary-container/40 transition-all";
+          } else {
+            btn.className = "preset-btn px-2.5 py-1 rounded bg-surface-container-high text-label-caps font-label-caps text-on-surface-variant hover:text-primary hover:border-primary-container/40 border border-transparent transition-all";
+          }
+        });
+      }
+
+      btnIncrement.addEventListener('click', () => updateMinutesUI(currentMinutes + 1));
+      btnDecrement.addEventListener('click', () => updateMinutesUI(currentMinutes - 1));
+
+      presetBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const val = parseInt(btn.getAttribute('data-val'), 10);
+          updateMinutesUI(val);
+        });
+      });
+
+      // Soporte de rueda del mouse y gesto táctil en la corona (Apple Watch wheel)
+      crownWheel.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        if (e.deltaY < 0) {
+          updateMinutesUI(currentMinutes + 1);
+        } else if (e.deltaY > 0) {
+          updateMinutesUI(currentMinutes - 1);
+        }
+      }, { passive: false });
+
+      let touchStartY = null;
+      crownWheel.addEventListener('touchstart', (e) => {
+        touchStartY = e.touches[0].clientY;
+      }, { passive: true });
+
+      crownWheel.addEventListener('touchmove', (e) => {
+        if (touchStartY === null) return;
+        const currentY = e.touches[0].clientY;
+        const diff = touchStartY - currentY;
+        if (Math.abs(diff) > 18) {
+          updateMinutesUI(currentMinutes + (diff > 0 ? 1 : -1));
+          touchStartY = currentY;
+        }
+      }, { passive: true });
+
+      // =========================================================================
+      // 3. GRABACIÓN DE VOZ Y TRANSCRIPCIÓN SILENCIOSA (NO SE MUESTRA EN UI)
+      // =========================================================================
+      let isRecording = false;
+      let recordInterval = null;
+      let secondsElapsed = 0;
+
+      // Transcripción almacenada únicamente en memoria interna para enviarse a "Dios_que_hablo"
+      let finalSegments = [];
+      let hiddenInterimTranscript = '';
+      let lastSpeechError = null;
+      let recognition = null;
+
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+      function setupSpeechRecognition() {
+        if (!SpeechRecognition) return null;
+        const rec = new SpeechRecognition();
+        rec.lang = 'es-CO'; // Reconoce español latinoamericano y general
+        rec.continuous = true;
+        rec.interimResults = true;
+        rec.maxAlternatives = 1;
+
+        rec.onresult = (event) => {
+          lastSpeechError = null;
+          let currentInterim = '';
+          for (let i = event.resultIndex; i < event.results.length; ++i) {
+            const segment = event.results[i][0].transcript.trim();
+            if (event.results[i].isFinal) {
+              if (segment) finalSegments.push(segment);
+            } else {
+              currentInterim += segment + ' ';
+            }
+          }
+          hiddenInterimTranscript = currentInterim.trim();
+        };
+
+        rec.onerror = (event) => {
+          lastSpeechError = event.error;
+          if (event.error === 'not-allowed' || event.error === 'service-not-allowed') {
+            stopRecordingUI();
+            showStatus('Permiso de micrófono denegado o bloqueado. Si abriste el archivo con doble clic (file://), ábrelo mediante un servidor local (http://localhost).', 'error');
+          } else if (event.error === 'network') {
+            showStatus('El servicio de voz del navegador requiere conexión o usar Google Chrome / Edge.', 'error');
+          }
+        };
+
+        rec.onend = () => {
+          // Consolidar cualquier fragmento intermedio antes de que se reinicie el ciclo
+          if (hiddenInterimTranscript.trim()) {
+            finalSegments.push(hiddenInterimTranscript.trim());
+            hiddenInterimTranscript = '';
+          }
+
+          // Si el usuario sigue en modo grabación, reiniciar escucha continua
+          if (isRecording) {
+            try {
+              rec.start();
+            } catch (err) {
+              // Ignorar si ya está iniciando
+            }
+          }
+        };
+
+        return rec;
+      }
+
+      function getCapturedTranscript() {
+        const combined = [...finalSegments];
+        if (hiddenInterimTranscript.trim()) {
+          combined.push(hiddenInterimTranscript.trim());
+        }
+        return combined.join(' ').replace(/\s+/g, ' ').trim();
+      }
+
+      function startRecording() {
+        hideStatus();
+        if (!SpeechRecognition) {
+          showStatus('Tu navegador no soporta reconocimiento de voz directo. Por favor usa Google Chrome, Edge o Safari.', 'error');
+          return;
+        }
+
+        // Importante: NO usar getUserMedia simultáneamente con SpeechRecognition
+        // porque en Windows/Android bloquea el canal de audio del motor de transcripción.
+        if (!recognition) {
+          recognition = setupSpeechRecognition();
+        }
+
+        isRecording = true;
+        lastSpeechError = null;
+
+        try {
+          recognition.start();
+        } catch (e) {
+          // Ya estaba activo
+        }
+
+        // Activar interfaz visual de grabación
+        micBtn.classList.remove('border-outline-variant/60');
+        micBtn.classList.add('border-primary-container', 'glow-pulse', 'bg-surface-container-highest');
+        micIcon.textContent = 'stop';
+        micRingOuter.classList.remove('opacity-0');
+        micRingInner.classList.remove('opacity-0');
+        micRingOuter.classList.add('animate-ping', 'opacity-30');
+        micStatusLabel.textContent = "Grabando tu voz... (Toca para detener)";
+        micStatusLabel.classList.add('text-primary-container');
+
+        recordingBadge.classList.add('text-error');
+        recordingBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-error animate-ping"></span> GRABANDO`;
+        visualizer.classList.remove('opacity-60');
+        visualizer.classList.add('opacity-100');
+        btnResetAudio.classList.add('hidden');
+
+        // Animar barras de onda
+        waveBars.forEach((bar, idx) => {
+          bar.classList.add('wave-active');
+          bar.style.animationDelay = `${(idx % 4) * 0.15}s`;
+        });
+
+        // Iniciar cronómetro
+        clearInterval(recordInterval);
+        recordInterval = setInterval(() => {
+          secondsElapsed++;
+          const mins = Math.floor(secondsElapsed / 60).toString().padStart(2, '0');
+          const secs = (secondsElapsed % 60).toString().padStart(2, '0');
+          recordTimer.textContent = `${mins}:${secs}`;
+        }, 1000);
+      }
+
+      function stopRecordingUI() {
+        isRecording = false;
+
+        // Respaldar cualquier texto en curso antes de detener el motor
+        if (hiddenInterimTranscript.trim()) {
+          finalSegments.push(hiddenInterimTranscript.trim());
+          hiddenInterimTranscript = '';
+        }
+
+        if (recognition) {
+          try {
+            recognition.stop();
+          } catch (e) {}
+        }
+
+        clearInterval(recordInterval);
+
+        micBtn.classList.add('border-outline-variant/60');
+        micBtn.classList.remove('border-primary-container', 'glow-pulse', 'bg-surface-container-highest');
+        micIcon.textContent = 'mic';
+        micRingOuter.classList.add('opacity-0');
+        micRingInner.classList.add('opacity-0');
+        micRingOuter.classList.remove('animate-ping');
+
+        visualizer.classList.add('opacity-60');
+        visualizer.classList.remove('opacity-100');
+        waveBars.forEach(bar => bar.classList.remove('wave-active'));
+
+        // Pequeña espera para consolidar el último fragmento de voz del motor
+        setTimeout(() => {
+          const hasAudioText = getCapturedTranscript().length > 0;
+          if (hasAudioText) {
+            micStatusLabel.textContent = "Audio procesado y listo para guardar (Toca para continuar grabando)";
+            micStatusLabel.classList.remove('text-primary-container');
+            recordingBadge.classList.remove('text-error');
+            recordingBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span> AUDIO LISTO`;
+            btnResetAudio.classList.remove('hidden');
+          } else if (secondsElapsed > 0) {
+            micStatusLabel.textContent = "No se detectó voz en el micrófono (Toca para intentar de nuevo)";
+            micStatusLabel.classList.remove('text-primary-container');
+            recordingBadge.classList.remove('text-error');
+            recordingBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-error"></span> SIN VOZ`;
+            btnResetAudio.classList.remove('hidden');
+            if (window.location.protocol === 'file:') {
+              showStatus('Nota: Abriste el archivo como file://. En Chrome/Windows el transcriptor de voz requiere abrirse desde http://localhost o publicarse en web.', 'error');
+            }
+          } else {
+            micStatusLabel.textContent = "Toca el micrófono para grabar tu aprendizaje";
+            recordingBadge.classList.remove('text-error');
+            recordingBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-outline"></span> EN ESPERA`;
+          }
+        }, 500);
+      }
+
+      micBtn.addEventListener('click', () => {
+        if (!isRecording) {
+          startRecording();
+        } else {
+          stopRecordingUI();
+        }
+      });
+
+      btnResetAudio.addEventListener('click', () => {
+        finalSegments = [];
+        hiddenInterimTranscript = '';
+        secondsElapsed = 0;
+        recordTimer.textContent = '00:00';
+        micStatusLabel.textContent = 'Toca el micrófono para grabar tu aprendizaje';
+        recordingBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-outline"></span> EN ESPERA`;
+        btnResetAudio.classList.add('hidden');
+      });
+
+      // =========================================================================
+      // 4. CONFIGURACIÓN DEL CONECTOR DE GOOGLE SHEETS ("registros de r07")
+      // =========================================================================
+      function getScriptUrl() {
+        return (localStorage.getItem(STORAGE_KEYS.SCRIPT_URL) || DEFAULT_SCRIPT_URL).trim();
+      }
+
+      function updateConnectionIndicator() {
+        if (getScriptUrl()) {
+          sheetConnectedDot.classList.remove('hidden');
+        } else {
+          sheetConnectedDot.classList.add('hidden');
+        }
+      }
+
+      function openSettingsModal() {
+        scriptUrlInput.value = getScriptUrl();
+        settingsModal.classList.remove('hidden');
+        settingsModal.classList.add('flex');
+      }
+
+      function closeSettingsModal() {
+        settingsModal.classList.add('hidden');
+        settingsModal.classList.remove('flex');
+      }
+
+      btnSettings.addEventListener('click', openSettingsModal);
+      btnCloseModal.addEventListener('click', closeSettingsModal);
+      btnCancelSettings.addEventListener('click', closeSettingsModal);
+
+      btnSaveSettings.addEventListener('click', () => {
+        const url = scriptUrlInput.value.trim();
+        if (url) {
+          localStorage.setItem(STORAGE_KEYS.SCRIPT_URL, url);
+          showStatus('Conexión con Google Sheet "registros de r07" guardada.', 'info');
+        } else {
+          localStorage.removeItem(STORAGE_KEYS.SCRIPT_URL);
+        }
+        updateConnectionIndicator();
+        closeSettingsModal();
+      });
+
+      // =========================================================================
+      // 5. ALERTAS Y ENVÍO DE DATOS A GOOGLE SHEETS
+      // =========================================================================
+      function showStatus(message, type = 'info') {
+        statusAlert.classList.remove('hidden', 'bg-error-container/30', 'border-error/50', 'text-error', 'bg-primary-container/10', 'border-primary-container/40', 'text-primary');
+        if (type === 'error') {
+          statusAlert.classList.add('bg-error-container/30', 'border-error/50', 'text-error');
+        } else {
+          statusAlert.classList.add('bg-primary-container/10', 'border-primary-container/40', 'text-primary');
+        }
+        statusAlert.textContent = message;
+      }
+
+      function hideStatus() {
+        statusAlert.classList.add('hidden');
+      }
+
+      btnSubmit.addEventListener('click', async () => {
+        hideStatus();
+
+        // Si estaba grabando cuando presionó Guardar, detener primero para capturar todo
+        if (isRecording) {
+          stopRecordingUI();
+          await new Promise(resolve => setTimeout(resolve, 450));
+        }
+
+        const userName = userNameInput.value.trim();
+        if (!userName) {
+          showStatus('Por favor ingresa tu nombre antes de guardar tu R07.', 'error');
+          userNameInput.focus();
+          return;
+        }
+
+        const transcriptText = getCapturedTranscript();
+        if (!transcriptText) {
+          showStatus('Por favor graba con el micrófono lo que Dios te habló hoy antes de guardar.', 'error');
+          return;
+        }
+
+        const scriptUrl = getScriptUrl();
+        if (!scriptUrl) {
+          openSettingsModal();
+          showStatus('Configura primero la URL de tu Google Apps Script para guardar en "registros de r07".', 'error');
+          return;
+        }
+
+        // Persistir en caché el nombre y el tiempo destinado para el día siguiente
+        savePreferencesToCache();
+
+        // Fecha y hora local automática de respaldo
+        const now = new Date();
+        const fechaHoraISO = now.toLocaleString('es-CO', { hour12: false });
+
+        // Payload con las columnas requeridas (incluyendo Dios_que_hablo oculto en UI)
+        const payload = {
+          fecha_hora: fechaHoraISO,
+          nombre: userName,
+          tiempo_destinado: currentMinutes,
+          Dios_que_hablo: transcriptText
+        };
+
+        const originalBtnHTML = btnSubmit.innerHTML;
+        btnSubmit.innerHTML = `
+          <span class="material-symbols-outlined animate-spin" data-icon="sync">sync</span>
+          <span>SINCRONIZANDO R07...</span>
+        `;
+        btnSubmit.disabled = true;
+
+        try {
+          // Enviar mediante fetch con text/plain para evitar bloqueo CORS preflight en Google Apps Script
+          await fetch(scriptUrl, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+              'Content-Type': 'text/plain;charset=utf-8'
+            },
+            body: JSON.stringify(payload)
+          });
+
+          btnSubmit.innerHTML = `
+            <span class="material-symbols-outlined" data-icon="check_circle">check_circle</span>
+            <span>R07 GUARDADO CON ÉXITO</span>
+          `;
+          btnSubmit.classList.remove('from-primary-container/90', 'to-secondary');
+          btnSubmit.classList.add('bg-primary-container', 'text-on-primary-fixed');
+
+          // Limpiar solo el audio para una nueva sesión (el nombre y los minutos quedan en caché)
+          finalSegments = [];
+          hiddenInterimTranscript = '';
+          secondsElapsed = 0;
+          recordTimer.textContent = '00:00';
+          micStatusLabel.textContent = 'Registro enviado a Google Sheets';
+          recordingBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span> SINCRONIZADO`;
+          btnResetAudio.classList.add('hidden');
+
+          setTimeout(() => {
+            btnSubmit.innerHTML = originalBtnHTML;
+            btnSubmit.disabled = false;
+            btnSubmit.classList.add('from-primary-container/90', 'to-secondary');
+            btnSubmit.classList.remove('bg-primary-container', 'text-on-primary-fixed');
+            micStatusLabel.textContent = 'Toca el micrófono para grabar tu aprendizaje';
+            recordingBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-outline"></span> EN ESPERA`;
+          }, 2800);
+
+        } catch (error) {
+          btnSubmit.innerHTML = originalBtnHTML;
+          btnSubmit.disabled = false;
+          showStatus('Error de red al intentar sincronizar con Google Sheets. Verifica tu conexión.', 'error');
+        }
+      });
+
+      // Inicializar aplicación cargando valores cacheados
+      loadCachedPreferences();
+    });
+  </script>
+</body>
+</html>
